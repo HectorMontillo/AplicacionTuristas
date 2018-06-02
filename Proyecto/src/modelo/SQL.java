@@ -40,7 +40,7 @@ public class SQL extends Conexion{
      return true;        
     }
     
-    
+    // metodo para consultar inicio 
     public int ConsultaInicio(String Codigo, String Clave){
         int tipo = 3; 
         Connection con = getConexion();
