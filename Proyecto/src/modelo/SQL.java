@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 public class SQL extends Conexion{
     
-    
+    // metodo para verificar 
     public boolean ConsultaAdministrador(){
         Connection con = getConexion();
         //SELECT * FROM `empleados` WHERE id_emp = "1088345137" AND password = "cafeoscuro"; 
