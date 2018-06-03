@@ -72,7 +72,7 @@ public class SQL extends Conexion{
     return tipo;  
     }
     
-
+    // metodo para insertar un nuevo empleado
     public boolean AgregarAdminstrador(Administrador Admin){
        
        // para insertar en mysql vamos a prepara la consulta 
