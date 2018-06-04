@@ -74,7 +74,7 @@ public class Controlador implements ActionListener{
             case "B_Registro":
                 String clavereg = new String(view_login.T_regclave.getPassword());
                 this.Registro(view_login.T_regcodigo.getText(), view_login.T_regnombre.getText(), clavereg,view_login.Cb_reg.isSelected());
-                break;
+                break; 
                 
             default:
                 System.out.println("Error en acción");
