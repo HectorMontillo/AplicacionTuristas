@@ -6,11 +6,6 @@ import javax.swing.JFrame;
 import modelo.Modelo;
 import vista.ViewLogin;
 
-/**
- *
- * @author LordBrakon
- */
-
 public class Proyecto {
 
     public static void main(String[] args) {
