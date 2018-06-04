@@ -16,6 +16,7 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     public ViewLogin() {
         initComponents();
+        this.setLocationRelativeTo(null); // ventana centrada 
     }
 
     /**
@@ -58,6 +59,11 @@ public class ViewLogin extends javax.swing.JFrame {
         T_logincodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 T_logincodigoActionPerformed(evt);
+            }
+        });
+        T_logincodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                T_logincodigoKeyTyped(evt);
             }
         });
 
@@ -122,6 +128,11 @@ public class ViewLogin extends javax.swing.JFrame {
                 T_regnombreActionPerformed(evt);
             }
         });
+        T_regnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                T_regnombreKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Clave:");
@@ -134,6 +145,11 @@ public class ViewLogin extends javax.swing.JFrame {
         T_regcodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 T_regcodigoActionPerformed(evt);
+            }
+        });
+        T_regcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                T_regcodigoKeyTyped(evt);
             }
         });
 
@@ -246,6 +262,30 @@ public class ViewLogin extends javax.swing.JFrame {
     private void Cb_regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_regActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Cb_regActionPerformed
+    
+    // Validación, para que solo se ingrese numeros en T_redcodigo
+    private void T_regcodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_T_regcodigoKeyTyped
+
+        char c = evt.getKeyChar();
+        
+        if(c< '0' || c>'9')evt.consume();
+    }//GEN-LAST:event_T_regcodigoKeyTyped
+    
+    // validación para que solo se ingrese las letras del alfabeto, en T_regnombre
+    private void T_regnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_T_regnombreKeyTyped
+
+        char c = evt.getKeyChar();
+        
+        if((c< 'a' || c>'z') && (c< 'A' || c>'Z') && c != 'ñ' && c != 'Ñ' )evt.consume(); 
+    }//GEN-LAST:event_T_regnombreKeyTyped
+
+    // validación para T_logincodigo 
+    private void T_logincodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_T_logincodigoKeyTyped
+       
+        char c = evt.getKeyChar();
+        
+        if(c< '0' || c>'9')evt.consume();
+    }//GEN-LAST:event_T_logincodigoKeyTyped
 
     /**
      * @param args the command line arguments
