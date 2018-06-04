@@ -1,17 +1,10 @@
 
 package proyecto;
 
-
 import controlador.Controlador;
 import javax.swing.JFrame;
 import modelo.Modelo;
 import vista.ViewLogin;
-
-/**
- *
- * @author LordBrakon
- */
-
 
 
 public class Proyecto {

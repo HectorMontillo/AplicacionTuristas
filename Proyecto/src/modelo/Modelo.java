@@ -59,7 +59,7 @@ public class Modelo{
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Se registró como vendedor");
+            
             vendedor = new Vendedor(Codigo,Usuario,Clave);
             return sql.AgregarVendedor(vendedor);
         }

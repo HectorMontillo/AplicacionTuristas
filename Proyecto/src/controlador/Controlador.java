@@ -70,12 +70,13 @@ public class Controlador implements ActionListener{
         
         switch (command){
             case "B_Login":
-                this.Login(view_login.T_logincodigo.getText(),view_login.T_loginclave.getText());
+                String clave = new String(view_login.T_loginclave.getPassword());
+                this.Login(view_login.T_logincodigo.getText(),clave);
                 break;
                 
             case "B_Registro":
-                
-                this.Registro(view_login.T_regcodigo.getText(), view_login.T_regnombre.getText(), view_login.T_regclave.getText(),view_login.Cb_reg.isSelected());
+                String clavereg = new String(view_login.T_regclave.getPassword());
+                this.Registro(view_login.T_regcodigo.getText(), view_login.T_regnombre.getText(), clavereg,view_login.Cb_reg.isSelected());
                 break;
                 
             default:
