@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Conexion {
     
-    private final String base = "proyecto_progralv"; // Nombre de la base de datos  
+    private final String base = "proyecto_progralv2"; // Nombre de la base de datos  
     private final String user = "root";   // contraseña por defecto en wampserver
     private final String password = "";   // password por defecto en wampserver
     private final String url = "jdbc:mysql://localhost/"+base; // url del servidor

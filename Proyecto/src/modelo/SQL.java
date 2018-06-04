@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 public class SQL extends Conexion{
     
-    
+    // metodo para verificar 
     public boolean ConsultaAdministrador(){
         Connection con = getConexion();
         //SELECT * FROM `empleados` WHERE id_emp = "1088345137" AND password = "cafeoscuro"; 
@@ -46,7 +46,7 @@ public class SQL extends Conexion{
             }       
     }
     
-    
+    // metodo para consultar inicio 
     public int ConsultaInicio(String Codigo, String Clave){
         int tipo = 3; 
         Connection con = getConexion();
@@ -78,7 +78,7 @@ public class SQL extends Conexion{
     return tipo;  
     }
     
-
+    // metodo para insertar un nuevo empleado
     public boolean AgregarAdminstrador(Administrador Admin){
        
        // para insertar en mysql vamos a prepara la consulta 
