@@ -29,7 +29,7 @@ public class ViewMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
+        L_nombre = new javax.swing.JLabel();
         B_crearpaquete = new javax.swing.JButton();
         B_listadoclientes = new javax.swing.JButton();
         B_reservarpaquete = new javax.swing.JButton();
@@ -41,7 +41,7 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Pereira Tours");
 
-        jLabel2.setText("Nombre Empleado");
+        L_nombre.setText("Nombre Empleado");
 
         B_crearpaquete.setText("Crear Paquete");
 
@@ -65,7 +65,7 @@ public class ViewMain extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
+                        .addComponent(L_nombre))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -85,7 +85,7 @@ public class ViewMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(L_nombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,8 +161,8 @@ public class ViewMain extends javax.swing.JFrame {
     public javax.swing.JButton B_listadoclientes;
     public javax.swing.JButton B_reservarpaquete;
     public javax.swing.JButton B_reservas;
+    public javax.swing.JLabel L_nombre;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
