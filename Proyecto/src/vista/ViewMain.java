@@ -162,7 +162,7 @@ public class ViewMain extends javax.swing.JFrame {
     public javax.swing.JButton B_reservarpaquete;
     public javax.swing.JButton B_reservas;
     public javax.swing.JLabel L_nombre;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
