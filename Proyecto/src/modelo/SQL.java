@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import vista.ViewCrearPaquete;
+import vista.ViewExcursiones;
 
 public class SQL extends Conexion{
     
@@ -172,10 +174,231 @@ public class SQL extends Conexion{
            }
            
            return false; 
-       } 
+    } 
     
+    public void cargarComboBox(ViewCrearPaquete view_paquete){
+        
+        Connection con = getConexion(); 
+        String sql = "SELECT * FROM paquete";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+             // limpia todo los items que estaban antes
+            view_paquete.CB_listapaquetes.removeAllItems();
+            
+            while(rs.next()){
+                view_paquete.CB_listapaquetes.addItem(rs.getString("nombre"));
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                JOptionPane.showMessageDialog(null, ea.getMessage(),"error",JOptionPane.OK_OPTION);
+            }       
+    }
+    
+    public void cargarComboOperadores(ViewExcursiones view_excursion){
+        
+        Connection con = getConexion(); 
+        String sql = "SELECT * FROM operador";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
 
+             // limpia todo los items que estaban antes
+            view_excursion.CB_VistaExcursionesOperador.removeAllItems();
+            
+            while(rs.next()){
+                view_excursion.CB_VistaExcursionesOperador.addItem(rs.getString("id_operador"));
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                JOptionPane.showMessageDialog(null, ea.getMessage(),"error",JOptionPane.OK_OPTION);
+            }       
+    }
+
+    public void cargarComboHoteles(ViewExcursiones view_excursion){
+        
+        Connection con = getConexion(); 
+        String sql = "SELECT * FROM hotel";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+             // limpia todo los items que estaban antes
+            view_excursion.CB_VistaExcursionesHotel.removeAllItems();
+            
+            while(rs.next()){
+                view_excursion.CB_VistaExcursionesHotel.addItem(rs.getString("nombre"));
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                JOptionPane.showMessageDialog(null, ea.getMessage(),"error",JOptionPane.OK_OPTION);
+            }       
+    }
     
+    public int obtenerIdHotel(String nombre_hotel){
+        
+        int id_hotel = 0; 
+        Connection con = getConexion();
+
+        String sql = "SELECT * FROM hotel WHERE nombre = '"+nombre_hotel+"' ";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                id_hotel = rs.getInt("id_hotel");
+                
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);    
+
+            }
+            
+    return id_hotel;
+    }
+    
+    public boolean registrarExcursion(String id_operador,int id_hotel, String lugar,int dias){
+        
+        PreparedStatement ps = null; 
+       Connection con = getConexion();   
+       
+       String sql= "INSERT INTO excursion(id_operador,id_hotel,lugar,dias)"
+               + " VALUES(?,?,?,?)"; 
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setString(1, id_operador);
+           ps.setInt(2, id_hotel);
+           ps.setString(3, lugar);
+           ps.setInt(4, dias);
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+          
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION); 
+
+           return false; 
+       }
+    }
+    
+    public int obtenerIdPaquete(String nombre_paquete){
+        
+        int id_paquete = 0; 
+        Connection con = getConexion();
+
+        String sql = "SELECT * FROM paquete WHERE nombre = '"+nombre_paquete+"' ";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                id_paquete = rs.getInt("id_paquete");
+                
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);    
+
+            }
+            
+    return id_paquete;
+    }
+    
+    public int obtenerIdExcursion(){
+        
+        int id_excursion = 0; 
+        Connection con = getConexion();
+        //SELECT MAX(id_paquete) AS max_idpaquete FROM paquete
+        String sql = "SELECT MAX(id_excursion) AS id_max FROM excursion";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                id_excursion = rs.getInt("id_max");
+                
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);    
+
+            }
+            
+    return id_excursion;
+    }
+    
+    public boolean registrarPaqueteExcursion(int id_paquete, int id_excursion){
+        PreparedStatement ps = null; 
+       Connection con = getConexion();   
+       
+       String sql= "INSERT INTO paquete_excursion(id_paquete,id_excursion)"
+               + " VALUES(?,?)"; 
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, id_paquete);
+           ps.setInt(2, id_excursion);
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+          
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION); 
+
+           return false; 
+       }
+    }
     /*
     public int entrarAdmin(String cod,String pass){
         

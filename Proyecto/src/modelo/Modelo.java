@@ -1,6 +1,8 @@
 package modelo;
 
 import javax.swing.JOptionPane;
+import vista.ViewCrearPaquete;
+import vista.ViewExcursiones;
 
 public class Modelo{
     
@@ -73,9 +75,37 @@ public class Modelo{
             return false;
         }
     }
-    public boolean CrearExcursion(){
-        return true;
+    
+    public boolean CrearExcursion(String lugar, String id_operador, String hotel, int dias){
+        
+        boolean result = false;
+        int id_hotel = sql.obtenerIdHotel(hotel);
+        if(id_hotel != 0){ // si retorna cero es porq hay 1 error 
+            if(sql.registrarExcursion(id_operador,id_hotel,lugar,dias)){
+                JOptionPane.showMessageDialog(null, "Se registro la excursion"); 
+                result= true; 
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "error con el id del hotel");
+        }
+        return result;
     }
+    
+    public void CrearPaqueteExcursion(String nom_paquete){
+        int id_paquete = sql.obtenerIdPaquete(nom_paquete);
+        int id_excursion = sql.obtenerIdExcursion(); // se hace en base a la  ultima excursion agregada 
+        
+        if(id_paquete != 0 && id_excursion != 0){
+            if(sql.registrarPaqueteExcursion(id_paquete,id_excursion)){ // registrar paquete_excursion
+                JOptionPane.showMessageDialog(null, "Se registro paquete-excursion");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "error con id_paquete ó id_excursion");
+        }
+    }
+    
     public boolean RealizarReserva(){
         return true;
     }
@@ -86,5 +116,13 @@ public class Modelo{
         return true;
     }
 
-  
+    public void cargarCombo(ViewCrearPaquete view_paquete){
+        sql.cargarComboBox(view_paquete);
+    }
+    public void cargarComboOperadores(ViewExcursiones view_excursion){
+        sql.cargarComboOperadores(view_excursion);
+    }
+    public void cargarComboHoteles(ViewExcursiones view_excursion){
+        sql.cargarComboHoteles(view_excursion);
+    }
 }
