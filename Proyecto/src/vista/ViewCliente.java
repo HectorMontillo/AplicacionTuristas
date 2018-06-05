@@ -41,6 +41,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         T_pago = new javax.swing.JTextField();
         B_abonar = new javax.swing.JButton();
+        B_cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +114,8 @@ public class ViewCliente extends javax.swing.JFrame {
 
         B_abonar.setText("Abonar");
 
+        B_cancelar.setText("Cancelar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,6 +124,8 @@ public class ViewCliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(B_abonar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(B_cancelar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,7 +134,9 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(B_abonar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(B_abonar)
+                    .addComponent(B_cancelar))
                 .addContainerGap())
         );
 
@@ -191,6 +198,7 @@ public class ViewCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton B_abonar;
     public javax.swing.JButton B_buscar;
+    public javax.swing.JButton B_cancelar;
     public javax.swing.JTextArea TA_cliente;
     public javax.swing.JTextField T_buscarclientes;
     public javax.swing.JTextField T_pago;

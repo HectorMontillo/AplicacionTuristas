@@ -56,6 +56,7 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Codigo:");
 
+        T_logincodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         T_logincodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 T_logincodigoActionPerformed(evt);

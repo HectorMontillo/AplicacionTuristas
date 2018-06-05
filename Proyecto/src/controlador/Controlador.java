@@ -27,12 +27,24 @@ public class Controlador implements ActionListener{
         // Botones vista Main
         this.view_main.B_crearpaquete.addActionListener(this);
         this.view_main.B_crearpaquete.setActionCommand("B_Crear");
+        this.view_main.B_listadoclientes.addActionListener(this);
+        this.view_main.B_listadoclientes.setActionCommand("listado_clientes");
+        
         // Botones vista PaqueteDestino
         this.view_destino.B_agregardestino.addActionListener(this);
         this.view_destino.B_agregardestino.setActionCommand("Agregar_paquete_des");
         this.view_destino.B_cancelardestino.addActionListener(this);
         this.view_destino.B_cancelardestino.setActionCommand("salir_destino");
         // Botones vista CrearPaquete
+        
+        
+        //Botones vista clientes
+        this.view_cliente.B_buscar.addActionListener(this);
+        this.view_cliente.B_buscar.setActionCommand("B_buscar");
+        this.view_cliente.B_abonar.addActionListener(this);
+        this.view_cliente.B_abonar.setActionCommand("B_abonar");
+        this.view_cliente.B_cancelar.addActionListener(this);
+        this.view_cliente.B_cancelar.setActionCommand("salir_vista_clientes");
         
         
     }
@@ -42,6 +54,8 @@ public class Controlador implements ActionListener{
         view_login.setLocationRelativeTo(null);
         view_main.setTitle("Pereira Tours: main");
         view_main.setLocationRelativeTo(null);
+        view_cliente.setTitle("Clientes");
+        view_cliente.setLocationRelativeTo(null);
     }
     
     public void Login(String Codigo, String Clave){
@@ -51,7 +65,7 @@ public class Controlador implements ActionListener{
         if (flag){
             System.out.println("Se inicio sesion");
             view_main.setVisible(true);
-            view_login.setVisible(false);
+            view_login.dispose();
         }else{
             System.out.println("No se inicio sesion");
         }
@@ -88,6 +102,16 @@ public class Controlador implements ActionListener{
             System.out.println("no ventana");
         }
     }
+    
+    public void BuscarCliente(String ID){
+        String description = modelo.BuscarCliente(ID);
+        if (!"".equals(description)){
+            this.view_cliente.TA_cliente.setText(description);
+        }else{
+            this.view_cliente.TA_cliente.setText("");
+        }
+          
+    }
     @Override
     public void actionPerformed(ActionEvent ae) {
         String command = ae.getActionCommand();
@@ -118,6 +142,20 @@ public class Controlador implements ActionListener{
                 view_destino.dispose();
                 view_main.setVisible(true); 
                 break; 
+                
+            case "listado_clientes":
+                this.view_cliente.setVisible(true);
+                this.view_main.dispose();
+                break;
+                
+            case "B_buscar":
+                this.BuscarCliente(view_cliente.T_buscarclientes.getText());
+                break;
+                
+            case "salir_vista_clientes":
+                this.view_cliente.dispose();
+                this.view_main.setVisible(true);
+                break;
             default:
                 System.out.println("Error en acción");
         }

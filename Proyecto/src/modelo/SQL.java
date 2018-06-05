@@ -185,18 +185,23 @@ public class SQL extends Conexion{
             
             Cliente cliente = new Cliente();
 
-            while(rs.next()){
+            if(rs.next()){
                 cliente.setID(rs.getString("id_cliente"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setRiesgo(rs.getInt("id_riesgo"));
                 cliente.setAbonado(rs.getDouble("saldo_acumulado"));
-                cliente.setSaldoTotal(rs.getDouble("saldo_total"));     
-            }
-            rs.close();
-            st.close();
-            con.close();
-            return cliente;
+                cliente.setSaldoTotal(rs.getDouble("saldo_total")); 
+                rs.close();
+                st.close();
+                con.close();
+                return cliente;
+            }else{
+                rs.close();
+                st.close();
+                con.close();
+                return null;
             
+            }
         } catch (SQLException ea) {
             return null;
         }
