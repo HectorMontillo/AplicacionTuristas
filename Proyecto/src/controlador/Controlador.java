@@ -13,6 +13,7 @@ public class Controlador implements ActionListener{
     ViewMain view_main = new ViewMain();
     ViewLogin view_login = new ViewLogin();
     ViewPaqueteDestino view_destino = new ViewPaqueteDestino(); 
+    ViewCliente view_cliente = new ViewCliente();
     Modelo modelo = new Modelo();
     JFrame view;
     

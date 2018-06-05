@@ -82,9 +82,24 @@ public class Modelo{
     public boolean Facturar(){
         return true;
     }
+    
+    public String BuscarCliente(String ID){
+        Cliente cliente;
+        cliente = sql.BuscarCliente(ID); 
+        
+        if (cliente == null){
+            JOptionPane.showMessageDialog(null, "No hay registros de: "+ID,"error",JOptionPane.OK_OPTION);
+            return "";
+        }else{
+            return "Datos del cliente:\nNombre: "+cliente.getNombre()+"\nIdentificaión:";
+        }
+        
+    }
     public boolean Abonar(){
         return true;
     }
+    
+    
 
   
 }

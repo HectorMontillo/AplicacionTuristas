@@ -174,6 +174,35 @@ public class SQL extends Conexion{
            return false; 
        } 
     
+     public Cliente BuscarCliente(String ID){
+        Connection con = getConexion();
+        //SELECT * FROM `empleados` WHERE id_emp = "1088345137" AND password = "cafeoscuro"; 
+        String sql = "SELECT * FROM cliente WHERE id_cliente = '"+ID+"'";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            Cliente cliente = new Cliente();
+
+            while(rs.next()){
+                cliente.setID(rs.getString("id_cliente"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setRiesgo(rs.getInt("id_riesgo"));
+                cliente.setAbonado(rs.getDouble("saldo_acumulado"));
+                cliente.setSaldoTotal(rs.getDouble("saldo_total"));     
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return cliente;
+            
+        } catch (SQLException ea) {
+            return null;
+        }
+              
+    }
+    
 
     
     /*
