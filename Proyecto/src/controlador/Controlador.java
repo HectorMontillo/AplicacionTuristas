@@ -58,6 +58,9 @@ public class Controlador implements ActionListener{
         }else{
             System.out.println("No se registró");
         }
+        this.view_login.T_regclave.setText("");
+        this.view_login.T_regnombre.setText("");
+        this.view_login.T_regcodigo.setText("");
         
     }
     

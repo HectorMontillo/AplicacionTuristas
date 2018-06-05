@@ -28,16 +28,22 @@ public class SQL extends Conexion{
             ResultSet rs = st.executeQuery(sql);
             
             if(rs.next()){
+                rs.close();
+                st.close();
+                con.close();
                 return true;
+            }else{
+                rs.close();
+                st.close();
+                con.close();
+                return false;
             }
-            rs.close();
-            st.close();
-            con.close();
+            
 
             } catch (SQLException ea) {
-                   return false; 
-            }
-     return true;        
+                System.out.println("No hay administradores en la base de datos");
+                  return false; 
+            }       
     }
     
     // metodo para consultar inicio 
