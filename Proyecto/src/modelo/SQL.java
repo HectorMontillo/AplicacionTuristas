@@ -148,6 +148,32 @@ public class SQL extends Conexion{
        }
        
    }
+    
+    public boolean agregarPaquete(String nombre_paquete, String destino){
+        
+       PreparedStatement ps = null; 
+       Connection con = getConexion();   
+       
+       String sql= "INSERT INTO paquete(nombre,destino) VALUES(?,?)"; 
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setString(1, nombre_paquete);
+           ps.setString(2, destino);
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+
+               JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION); 
+           }
+           
+           return false; 
+       } 
+    
 
     
     /*
