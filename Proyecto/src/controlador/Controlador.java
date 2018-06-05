@@ -4,21 +4,18 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
-import vista.ViewLogin;
 import modelo.Modelo;
+import vista.*;
 
 public class Controlador implements ActionListener{
     
-    ViewLogin view_login;
-    Modelo modelo;
+    ViewMain view_main = new ViewMain();
+    ViewLogin view_login = new ViewLogin();
+    Modelo modelo = new Modelo();
     JFrame view;
     
-    public Controlador(ViewLogin view_login, Modelo modelo){
-        this.view_login = view_login; 
-        this.modelo = modelo;
-    
+    public Controlador(){
         this.view_login.setVisible(true);
-        
         this.view_login.B_Login.addActionListener(this);
         this.view_login.B_Login.setActionCommand("B_Login");
         this.view_login.B_Registro.addActionListener(this);
@@ -28,8 +25,10 @@ public class Controlador implements ActionListener{
     }
     
     public void iniciar(){
-        view_login.setTitle("Repuestos y accesorios Buena Vibra Club");
+        view_login.setTitle("Login");
         view_login.setLocationRelativeTo(null);
+        view_main.setTitle("Pereira Tours: main");
+        view_main.setLocationRelativeTo(null);
     }
     
     public void Login(String Codigo, String Clave){
@@ -38,9 +37,12 @@ public class Controlador implements ActionListener{
         
         if (flag){
             System.out.println("Se inicio sesion");
+            view_main.setVisible(true);
+            view_login.setVisible(false);
         }else{
             System.out.println("No se inicio sesion");
         }
+        
     }
     
     public void Registro(String Codigo, String Nombre, String Clave,boolean Tipo){
