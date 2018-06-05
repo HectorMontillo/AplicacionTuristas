@@ -16,6 +16,7 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
      */
     public ViewCrearPaquete() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

@@ -13,8 +13,12 @@ public class Controlador implements ActionListener{
     ViewMain view_main = new ViewMain();
     ViewLogin view_login = new ViewLogin();
     ViewPaqueteDestino view_destino = new ViewPaqueteDestino(); 
+
     ViewCrearPaquete view_paquete = new ViewCrearPaquete(); 
     ViewExcursiones view_excursion = new ViewExcursiones(); 
+
+    ViewCliente view_cliente = new ViewCliente();
+
     Modelo modelo = new Modelo();
     JFrame view;
     String nom_paquete; 
@@ -31,6 +35,9 @@ public class Controlador implements ActionListener{
         // Botones vista Main
         this.view_main.B_crearpaquete.addActionListener(this);
         this.view_main.B_crearpaquete.setActionCommand("B_Crear");
+        this.view_main.B_listadoclientes.addActionListener(this);
+        this.view_main.B_listadoclientes.setActionCommand("listado_clientes");
+        
         // Botones vista PaqueteDestino
         this.view_destino.B_agregardestino.addActionListener(this);
         this.view_destino.B_agregardestino.setActionCommand("Agregar_paquete_des");
@@ -51,6 +58,15 @@ public class Controlador implements ActionListener{
         this.view_excursion.CB_VistaExcursionesHotel.addActionListener(this);
         this.view_excursion.CB_VistaExcursionesHotel.setActionCommand("lista_hoteles");
         
+        //Botones vista clientes
+        this.view_cliente.B_buscar.addActionListener(this);
+        this.view_cliente.B_buscar.setActionCommand("B_buscar");
+        this.view_cliente.B_abonar.addActionListener(this);
+        this.view_cliente.B_abonar.setActionCommand("B_abonar");
+        this.view_cliente.B_cancelar.addActionListener(this);
+        this.view_cliente.B_cancelar.setActionCommand("salir_vista_clientes");
+        
+        
     }
     
     public void iniciar(){
@@ -58,6 +74,8 @@ public class Controlador implements ActionListener{
         view_login.setLocationRelativeTo(null);
         view_main.setTitle("Pereira Tours: main");
         view_main.setLocationRelativeTo(null);
+        view_cliente.setTitle("Clientes");
+        view_cliente.setLocationRelativeTo(null);
     }
     
     public void Login(String Codigo, String Clave){
@@ -67,7 +85,7 @@ public class Controlador implements ActionListener{
         if (flag){
             System.out.println("Se inicio sesion");
             view_main.setVisible(true);
-            view_login.setVisible(false);
+            view_login.dispose();
         }else{
             System.out.println("No se inicio sesion");
         }
@@ -107,6 +125,17 @@ public class Controlador implements ActionListener{
         }
     }
     
+
+    public void BuscarCliente(String ID){
+        String description = modelo.BuscarCliente(ID);
+        if (!"".equals(description)){
+            this.view_cliente.TA_cliente.setText(description);
+        }else{
+            this.view_cliente.TA_cliente.setText("");
+        }
+          
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         String command = ae.getActionCommand();
@@ -138,6 +167,7 @@ public class Controlador implements ActionListener{
                 view_destino.dispose();
                 view_main.setVisible(true); 
                 break; 
+
             case "Agregar_excursion":
                 view_excursion.setVisible(true);
                 modelo.cargarComboOperadores(view_excursion);
@@ -159,7 +189,10 @@ public class Controlador implements ActionListener{
                 
             case "Add_paquete_excursion":
                 //String nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
-                modelo.CrearPaqueteExcursion(nom_paquete);
+                if(modelo.CrearPaqueteExcursion(nom_paquete)){
+                    view_paquete.dispose();
+                    view_main.setVisible(true);
+                }
                 break;
             case "lista_paquetes":
                 nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
@@ -171,6 +204,22 @@ public class Controlador implements ActionListener{
                 nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString(); 
                 break;
                 
+
+                
+            case "listado_clientes":
+                this.view_cliente.setVisible(true);
+                this.view_main.dispose();
+                break;
+                
+            case "B_buscar":
+                this.BuscarCliente(view_cliente.T_buscarclientes.getText());
+                break;
+                
+            case "salir_vista_clientes":
+                this.view_cliente.dispose();
+                this.view_main.setVisible(true);
+                break;
+
             default:
                 System.out.println("Error en acción");
         }

@@ -47,8 +47,6 @@ public class Modelo{
     public boolean Registro(String Codigo, String Usuario, String Clave, int Tipo){
         if(Tipo == 0){
             Admin = Administrador.getSingleton(Codigo,Usuario,Clave);
-            System.out.println(Admin);
-            System.out.println(sql.ConsultaAdministrador());
             if ((Admin != null) && (this.CargarAdministradores() == false)){
                 JOptionPane.showMessageDialog(null, "Se registró como Administrador");
                 return sql.AgregarAdminstrador(Admin);
@@ -92,18 +90,21 @@ public class Modelo{
         return result;
     }
     
-    public void CrearPaqueteExcursion(String nom_paquete){
+    public boolean CrearPaqueteExcursion(String nom_paquete){
+        boolean result = false; 
         int id_paquete = sql.obtenerIdPaquete(nom_paquete);
         int id_excursion = sql.obtenerIdExcursion(); // se hace en base a la  ultima excursion agregada 
         
         if(id_paquete != 0 && id_excursion != 0){
             if(sql.registrarPaqueteExcursion(id_paquete,id_excursion)){ // registrar paquete_excursion
                 JOptionPane.showMessageDialog(null, "Se registro paquete-excursion");
+                result = true; 
             }
         }
         else{
             JOptionPane.showMessageDialog(null, "error con id_paquete ó id_excursion");
         }
+        return result; 
     }
     
     public boolean RealizarReserva(){
@@ -112,9 +113,25 @@ public class Modelo{
     public boolean Facturar(){
         return true;
     }
+    
+    public String BuscarCliente(String ID){
+        Cliente cliente;
+        cliente = sql.BuscarCliente(ID); 
+        if (cliente == null){
+            JOptionPane.showMessageDialog(null, "No hay registros de: "+ID,"error",JOptionPane.OK_OPTION);
+            return "";
+        }else{
+            return "Datos del cliente:\nNombre: "+cliente.getNombre()+"\nIdentificaión :"
+                    +cliente.getID()+"\nTotal pagar: "+cliente.getSaldoTotal()+"\nTotal abonado: "
+                    +cliente.getAbonado();
+        }
+        
+    }
     public boolean Abonar(){
         return true;
     }
+    
+    
 
     public void cargarCombo(ViewCrearPaquete view_paquete){
         sql.cargarComboBox(view_paquete);

@@ -287,6 +287,7 @@ public class SQL extends Conexion{
     return id_hotel;
     }
     
+
     public boolean registrarExcursion(String id_operador,int id_hotel, String lugar,int dias){
         
         PreparedStatement ps = null; 
@@ -309,11 +310,49 @@ public class SQL extends Conexion{
            
        } catch (SQLException ex) {
           
-            JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION); 
-
-           return false; 
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION);
+            return false; 
        }
+       
     }
+     public Cliente BuscarCliente(String ID){
+        Connection con = getConexion();
+        //SELECT * FROM `empleados` WHERE id_emp = "1088345137" AND password = "cafeoscuro"; 
+        String sql = "SELECT * FROM cliente WHERE id_cliente = '"+ID+"'";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            Cliente cliente = new Cliente();
+
+            if(rs.next()){
+                cliente.setID(rs.getString("id_cliente"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setRiesgo(rs.getInt("id_riesgo"));
+                cliente.setAbonado(rs.getDouble("saldo_acumulado"));
+                cliente.setSaldoTotal(rs.getDouble("saldo_total")); 
+                rs.close();
+                st.close();
+                con.close();
+                return cliente;
+            }else{
+                rs.close();
+                st.close();
+                con.close();
+                return null;
+            
+            }
+        } catch (SQLException ea) {
+            return null;
+        }
+              
+    }
+    
+
+
+           
+    
     
     public int obtenerIdPaquete(String nombre_paquete){
         

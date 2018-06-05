@@ -16,6 +16,7 @@ public class ViewExcursiones extends javax.swing.JFrame {
      */
     public ViewExcursiones() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
