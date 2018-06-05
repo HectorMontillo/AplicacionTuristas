@@ -64,8 +64,14 @@ public class Modelo{
             return sql.AgregarVendedor(vendedor);
         }
     }
-    public boolean CrearPaquete(){
-        return true;
+    public boolean CrearPaquete(String nombre_paquete, String destino){
+        if(sql.agregarPaquete(nombre_paquete, destino)){
+           JOptionPane.showMessageDialog(null, "Se agrego un nuevo paquete");
+           return true;
+        } 
+        else{
+            return false;
+        }
     }
     public boolean CrearExcursion(){
         return true;
