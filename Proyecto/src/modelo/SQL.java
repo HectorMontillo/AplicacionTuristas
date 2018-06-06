@@ -62,7 +62,6 @@ public class SQL extends Conexion{
 
             while(rs.next()){
                  tipo = rs.getInt("id_tipo");
-                
             }
             
             rs.close();
@@ -186,7 +185,7 @@ public class SQL extends Conexion{
             ResultSet rs = st.executeQuery(sql);
             
              // limpia todo los items que estaban antes
-            view_paquete.CB_listapaquetes.removeAllItems();
+            //view_paquete.CB_listapaquetes.removeAllItems();
             
             while(rs.next()){
                 view_paquete.CB_listapaquetes.addItem(rs.getString("nombre"));

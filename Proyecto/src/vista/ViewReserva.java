@@ -56,8 +56,6 @@ public class ViewReserva extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Paquetes");
 
-        CB_ReservasPaquetes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(1, 1, 1));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -220,7 +218,7 @@ public class ViewReserva extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_ReservaBoton;
     private javax.swing.JComboBox<String> CB_ReservaVuelo;
-    private javax.swing.JComboBox<String> CB_ReservasPaquetes;
+    public javax.swing.JComboBox<String> CB_ReservasPaquetes;
     private javax.swing.JTextArea TA_ReservasDescripcion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

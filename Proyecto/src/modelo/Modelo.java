@@ -12,7 +12,9 @@ public class Modelo{
     SQL sql = new SQL();
     int tipo;
     boolean flag;
-    
+    int op_exc; 
+    int id_paquete; 
+    I_Excursion excursion = new Excursion(); 
     
  
     public Modelo(){}
@@ -106,7 +108,11 @@ public class Modelo{
         }
         return result; 
     }
-    
+
+    public void setIdPaquete(String nom_paquete){
+        
+        id_paquete = sql.obtenerIdPaquete(nom_paquete);
+    }
     public boolean RealizarReserva(){
         return true;
     }
@@ -130,9 +136,30 @@ public class Modelo{
     public boolean Abonar(){
         return true;
     }
-    
-    
 
+    public void setOpcion(int op){
+       op_exc= op; 
+   }
+   
+    public String Opcion(){
+        
+        if(op_exc == 1){
+            excursion = new Nevado(excursion);
+            sql.registrarPaqueteExcursion(id_paquete, 6);
+          
+        }
+        if(op_exc == 2){
+            sql.registrarPaqueteExcursion(id_paquete, 2);
+            excursion = new Otun(excursion); 
+        } 
+        if(op_exc == 3){
+            sql.registrarPaqueteExcursion(id_paquete, 4);
+            excursion = new Otun(excursion); 
+        }
+        return excursion.getExcursion();
+        
+    } 
+    
     public void cargarCombo(ViewCrearPaquete view_paquete){
         sql.cargarComboBox(view_paquete);
     }
@@ -142,4 +169,5 @@ public class Modelo{
     public void cargarComboHoteles(ViewExcursiones view_excursion){
         sql.cargarComboHoteles(view_excursion);
     }
+    
 }

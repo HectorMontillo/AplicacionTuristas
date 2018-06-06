@@ -18,12 +18,16 @@ public class Controlador implements ActionListener{
     ViewExcursiones view_excursion = new ViewExcursiones(); 
 
     ViewCliente view_cliente = new ViewCliente();
-
+    ViewReserva view_reserva = new ViewReserva();
+    
+    ViewExcDecorator view_decorator = new ViewExcDecorator();
+    
     Modelo modelo = new Modelo();
     JFrame view;
     String nom_paquete; 
     String id_operador;
     String nom_hotel; 
+    int id_paquete; 
     
     public Controlador(){
         this.view_login.setVisible(true);
@@ -50,6 +54,8 @@ public class Controlador implements ActionListener{
         this.view_paquete.B_CrearPaqueteExcursionesOk.setActionCommand("Add_paquete_excursion");
         this.view_paquete.CB_listapaquetes.addActionListener(this);
         this.view_paquete.CB_listapaquetes.setActionCommand("lista_paquetes");
+        this.view_paquete.B_ExcursionDecorator.addActionListener(this);
+        this.view_paquete.B_ExcursionDecorator.setActionCommand("Exc_Decorator"); 
         // Vista Excursiones
         this.view_excursion.B_RegistrarExcursion.addActionListener(this);
         this.view_excursion.B_RegistrarExcursion.setActionCommand("Registrar_excursion");
@@ -66,7 +72,16 @@ public class Controlador implements ActionListener{
         this.view_cliente.B_cancelar.addActionListener(this);
         this.view_cliente.B_cancelar.setActionCommand("salir_vista_clientes");
         
+        // vista Reserva
+        this.view_reserva.CB_ReservasPaquetes.addActionListener(this);
         
+        // vista Excursion_Decorator
+        this.view_decorator.B_nevado.addActionListener(this);
+        this.view_decorator.B_nevado.setActionCommand("Nevado");
+        this.view_decorator.B_otun.addActionListener(this);
+        this.view_decorator.B_otun.setActionCommand("Otun");
+        this.view_decorator.B_florida.addActionListener(this);
+        this.view_decorator.B_florida.setActionCommand("Florida");
     }
     
     public void iniciar(){
@@ -118,6 +133,8 @@ public class Controlador implements ActionListener{
         if(modelo.CrearPaquete(nombre_paquete, destino)){
             view_paquete.setVisible(true);
             modelo.cargarCombo(view_paquete);
+            view_destino.T_nombrepaquete.setText("");
+            view_destino.T_destino.setText("");
         }
         else{
             view_destino.T_nombrepaquete.setText("");
@@ -156,9 +173,11 @@ public class Controlador implements ActionListener{
                 }
                 else{
                     // si no desea 1 nuevo paquete, entonces se trabaja con los paquetes existentes 
-                    view_paquete.setVisible(true); 
+                    view_paquete.setVisible(true);
+                    System.out.println("wer");
                     modelo.cargarCombo(view_paquete);
                 }
+                view_main.setVisible(false);
                 break; 
             case "Agregar_paquete_des":
                 this.crearPaquete(view_destino.T_nombrepaquete.getText(),view_destino.T_destino.getText());
@@ -183,14 +202,14 @@ public class Controlador implements ActionListener{
                 System.out.println("nomhotel: "+nom_hotel);
                 if(modelo.CrearExcursion(lugar, id_operador, nom_hotel, dias)){
                     view_paquete.setVisible(true);
-                    view_excursion.dispose();
+                    view_excursion.setVisible(false);
                 }
                 break; 
                 
             case "Add_paquete_excursion":
                 //String nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
                 if(modelo.CrearPaqueteExcursion(nom_paquete)){
-                    view_paquete.dispose();
+                    view_paquete.setVisible(false); 
                     view_main.setVisible(true);
                 }
                 break;
@@ -203,12 +222,10 @@ public class Controlador implements ActionListener{
             case "lista_hoteles":
                 nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString(); 
                 break;
-                
-
-                
+     
             case "listado_clientes":
                 this.view_cliente.setVisible(true);
-                this.view_main.dispose();
+                this.view_main.dispose(); 
                 break;
                 
             case "B_buscar":
@@ -219,7 +236,24 @@ public class Controlador implements ActionListener{
                 this.view_cliente.dispose();
                 this.view_main.setVisible(true);
                 break;
-
+            case "Exc_Decorator":
+                view_paquete.setVisible(false); 
+                view_decorator.setVisible(true); 
+                modelo.setIdPaquete(nom_paquete); 
+                view_decorator.T_namepaquete.setText(nom_paquete); 
+                break; 
+            case "Nevado":
+                modelo.setOpcion(1);
+                view_decorator.T_excursionesadd.setText(modelo.Opcion());               
+                break;
+            case "Otun":
+                modelo.setOpcion(2);
+                view_decorator.T_excursionesadd.setText(modelo.Opcion());           
+                break;
+            case "Florida":
+                modelo.setOpcion(3);
+                view_decorator.T_excursionesadd.setText(modelo.Opcion());           
+                break;
             default:
                 System.out.println("Error en acción");
         }

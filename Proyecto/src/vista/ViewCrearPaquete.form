@@ -59,8 +59,11 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="B_CrearPaqueteExcursionesAgregar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          <Component id="B_CrearPaqueteExcursionesOk" min="-2" pref="60" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="B_CrearPaqueteExcursionesOk" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="B_ExcursionDecorator" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Component id="CB_listapaquetes" max="32767" attributes="0"/>
                   </Group>
@@ -75,11 +78,11 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="B_CrearPaqueteExcursionesAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="B_CrearPaqueteExcursionesOk" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="B_ExcursionDecorator" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -90,7 +93,9 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="75" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="B_CrearPaqueteExcursionesOk" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,6 +168,14 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ViewCrearPaquete_CB_listapaquetes"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="B_ExcursionDecorator">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Decorator"/>
+          </Properties>
+          <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
