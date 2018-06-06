@@ -533,6 +533,8 @@ public class SQL extends Conexion{
     
      public boolean RelacionarExcursionesPaquetes(ArrayList Paquetes,ArrayList Excursiones){
         
+         int id_paquete;
+         int id_excursion; 
         Connection con = getConexion();
         String sql = "SELECT * FROM paquete_excursion";      
         try{
@@ -540,6 +542,15 @@ public class SQL extends Conexion{
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()){
+               Paquete paquete; 
+               ExcursionPlus ex; 
+                id_paquete = rs.getInt("id_paquete");
+                id_excursion = rs.getInt("id_paquete");
+                
+                paquete = (Paquete)Paquetes.get(id_paquete-1);
+                ex = (ExcursionPlus)Excursiones.get(id_excursion-1);
+                
+                paquete.AgregarExcursion(ex); 
                 
             }
             rs.close();
