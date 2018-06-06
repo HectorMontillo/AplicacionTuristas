@@ -13,9 +13,21 @@ public class Controlador implements ActionListener{
     ViewMain view_main = new ViewMain();
     ViewLogin view_login = new ViewLogin();
     ViewPaqueteDestino view_destino = new ViewPaqueteDestino(); 
+
+    ViewCrearPaquete view_paquete = new ViewCrearPaquete(); 
+    ViewExcursiones view_excursion = new ViewExcursiones(); 
+
     ViewCliente view_cliente = new ViewCliente();
+    ViewReserva view_reserva = new ViewReserva();
+    
+    ViewExcDecorator view_decorator = new ViewExcDecorator();
+    
     Modelo modelo = new Modelo();
     JFrame view;
+    String nom_paquete; 
+    String id_operador;
+    String nom_hotel; 
+    int id_paquete; 
     
     public Controlador(){
         this.view_login.setVisible(true);
@@ -36,7 +48,21 @@ public class Controlador implements ActionListener{
         this.view_destino.B_cancelardestino.addActionListener(this);
         this.view_destino.B_cancelardestino.setActionCommand("salir_destino");
         // Botones vista CrearPaquete
-        
+        this.view_paquete.B_CrearPaqueteExcursionesAgregar.addActionListener(this);
+        this.view_paquete.B_CrearPaqueteExcursionesAgregar.setActionCommand("Agregar_excursion");
+        this.view_paquete.B_CrearPaqueteExcursionesOk.addActionListener(this);
+        this.view_paquete.B_CrearPaqueteExcursionesOk.setActionCommand("Add_paquete_excursion");
+        this.view_paquete.CB_listapaquetes.addActionListener(this);
+        this.view_paquete.CB_listapaquetes.setActionCommand("lista_paquetes");
+        this.view_paquete.B_ExcursionDecorator.addActionListener(this);
+        this.view_paquete.B_ExcursionDecorator.setActionCommand("Exc_Decorator"); 
+        // Vista Excursiones
+        this.view_excursion.B_RegistrarExcursion.addActionListener(this);
+        this.view_excursion.B_RegistrarExcursion.setActionCommand("Registrar_excursion");
+        this.view_excursion.CB_VistaExcursionesOperador.addActionListener(this);
+        this.view_excursion.CB_VistaExcursionesOperador.setActionCommand("lista_operadores");
+        this.view_excursion.CB_VistaExcursionesHotel.addActionListener(this);
+        this.view_excursion.CB_VistaExcursionesHotel.setActionCommand("lista_hoteles");
         
         //Botones vista clientes
         this.view_cliente.B_buscar.addActionListener(this);
@@ -46,7 +72,16 @@ public class Controlador implements ActionListener{
         this.view_cliente.B_cancelar.addActionListener(this);
         this.view_cliente.B_cancelar.setActionCommand("salir_vista_clientes");
         
+        // vista Reserva
+        this.view_reserva.CB_ReservasPaquetes.addActionListener(this);
         
+        // vista Excursion_Decorator
+        this.view_decorator.B_nevado.addActionListener(this);
+        this.view_decorator.B_nevado.setActionCommand("Nevado");
+        this.view_decorator.B_otun.addActionListener(this);
+        this.view_decorator.B_otun.setActionCommand("Otun");
+        this.view_decorator.B_florida.addActionListener(this);
+        this.view_decorator.B_florida.setActionCommand("Florida");
     }
     
     public void iniciar(){
@@ -96,13 +131,18 @@ public class Controlador implements ActionListener{
     public void crearPaquete(String nombre_paquete, String destino){
         
         if(modelo.CrearPaquete(nombre_paquete, destino)){
-            System.out.println("abriendo ventana paquete");
+            view_paquete.setVisible(true);
+            modelo.cargarCombo(view_paquete);
+            view_destino.T_nombrepaquete.setText("");
+            view_destino.T_destino.setText("");
         }
         else{
-            System.out.println("no ventana");
+            view_destino.T_nombrepaquete.setText("");
+            view_destino.T_destino.setText("");
         }
     }
     
+
     public void BuscarCliente(String ID){
         String description = modelo.BuscarCliente(ID);
         if (!"".equals(description)){
@@ -124,6 +164,7 @@ public class Controlador implements ActionListener{
         
           
     }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         String command = ae.getActionCommand();
@@ -144,8 +185,11 @@ public class Controlador implements ActionListener{
                 }
                 else{
                     // si no desea 1 nuevo paquete, entonces se trabaja con los paquetes existentes 
-                    // view_paquete.setVisible(true); 
+                    view_paquete.setVisible(true);
+                    System.out.println("wer");
+                    modelo.cargarCombo(view_paquete);
                 }
+                view_main.setVisible(false);
                 break; 
             case "Agregar_paquete_des":
                 this.crearPaquete(view_destino.T_nombrepaquete.getText(),view_destino.T_destino.getText());
@@ -154,10 +198,46 @@ public class Controlador implements ActionListener{
                 view_destino.dispose();
                 view_main.setVisible(true); 
                 break; 
+
+            case "Agregar_excursion":
+                view_excursion.setVisible(true);
+                modelo.cargarComboOperadores(view_excursion);
+                modelo.cargarComboHoteles(view_excursion);
+                break; 
                 
+            case "Registrar_excursion":
+                String lugar =view_excursion.T_VistaExcursionesLugar.getText();
+                int dias = Integer.parseInt(view_excursion.T_VistaExcursionesDias.getText()); 
+                //id_operador = view_excursion.CB_VistaExcursionesOperador.getSelectedItem().toString();
+                //nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString();
+                System.out.println("idopera: "+id_operador);
+                System.out.println("nomhotel: "+nom_hotel);
+                if(modelo.CrearExcursion(lugar, id_operador, nom_hotel, dias)){
+                    view_paquete.setVisible(true);
+                    view_excursion.setVisible(false);
+                }
+                break; 
+                
+            case "Add_paquete_excursion":
+                //String nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
+                if(modelo.CrearPaqueteExcursion(nom_paquete)){
+                    view_paquete.setVisible(false); 
+                    view_main.setVisible(true);
+                }
+                break;
+            case "lista_paquetes":
+                nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
+                break; 
+            case "lista_operadores":
+                id_operador = view_excursion.CB_VistaExcursionesOperador.getSelectedItem().toString();
+                break;
+            case "lista_hoteles":
+                nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString(); 
+                break;
+     
             case "listado_clientes":
                 this.view_cliente.setVisible(true);
-                this.view_main.dispose();
+                this.view_main.dispose(); 
                 break;
                 
             case "B_buscar":
@@ -173,6 +253,24 @@ public class Controlador implements ActionListener{
             case "salir_vista_clientes":
                 this.view_cliente.dispose();
                 this.view_main.setVisible(true);
+                break;
+            case "Exc_Decorator":
+                view_paquete.setVisible(false); 
+                view_decorator.setVisible(true); 
+                modelo.setIdPaquete(nom_paquete); 
+                view_decorator.T_namepaquete.setText(nom_paquete); 
+                break; 
+            case "Nevado":
+                modelo.setOpcion(1);
+                view_decorator.T_excursionesadd.setText(modelo.Opcion());               
+                break;
+            case "Otun":
+                modelo.setOpcion(2);
+                view_decorator.T_excursionesadd.setText(modelo.Opcion());           
+                break;
+            case "Florida":
+                modelo.setOpcion(3);
+                view_decorator.T_excursionesadd.setText(modelo.Opcion());           
                 break;
             default:
                 System.out.println("Error en acción");

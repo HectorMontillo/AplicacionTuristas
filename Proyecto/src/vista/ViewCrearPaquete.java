@@ -16,6 +16,7 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
      */
     public ViewCrearPaquete() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,7 +34,8 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         B_CrearPaqueteExcursionesAgregar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CB_listapaquetes = new javax.swing.JComboBox<>();
+        B_ExcursionDecorator = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +59,13 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
 
         B_CrearPaqueteExcursionesAgregar.setText("Agregar exc");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CB_listapaquetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_listapaquetesActionPerformed(evt);
+            }
+        });
+
+        B_ExcursionDecorator.setText("Decorator");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,9 +84,11 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(B_CrearPaqueteExcursionesAgregar)
-                        .addGap(49, 49, 49)
-                        .addComponent(B_CrearPaqueteExcursionesOk, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(B_CrearPaqueteExcursionesOk, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(B_ExcursionDecorator)))
+                    .addComponent(CB_listapaquetes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
@@ -88,17 +98,19 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
+                        .addGap(120, 120, 120)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(B_CrearPaqueteExcursionesAgregar)
-                            .addComponent(B_CrearPaqueteExcursionesOk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(B_ExcursionDecorator)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                            .addComponent(CB_listapaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(B_CrearPaqueteExcursionesOk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,6 +130,15 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CB_listapaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_listapaquetesActionPerformed
+        // TODO add your handling code here:
+        System.out.println("jComboBox1: " +  CB_listapaquetes);
+        String support = (String)CB_listapaquetes.getSelectedItem(); 
+        System.out.println("suppor: "+ support);
+        //System.out.println("league: "+ league);
+        //league.setLeagueName(support);
+    }//GEN-LAST:event_CB_listapaquetesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,9 +176,10 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton B_CrearPaqueteExcursionesAgregar;
+    public javax.swing.JButton B_CrearPaqueteExcursionesAgregar;
     public javax.swing.JButton B_CrearPaqueteExcursionesOk;
-    private javax.swing.JComboBox<String> jComboBox1;
+    public javax.swing.JButton B_ExcursionDecorator;
+    public javax.swing.JComboBox<String> CB_listapaquetes;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
