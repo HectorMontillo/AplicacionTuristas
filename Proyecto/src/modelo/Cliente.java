@@ -54,7 +54,18 @@ public class Cliente {
         return Abonado;
     }
 
-    public void setAbonado(double Abonado) {
+    public void Abonar(double Abonado) {
+        if (this.Abonado+Abonado < this.SaldoTotal){
+             this.Abonado += Abonado;
+        }else{
+            this.Abonado += Abonado;
+            this.Abonado -= this.SaldoTotal;
+            this.SaldoTotal = 0;
+        }
+       
+    }
+    
+    public void setAbonado(double Abonado){
         this.Abonado = Abonado;
     }
     

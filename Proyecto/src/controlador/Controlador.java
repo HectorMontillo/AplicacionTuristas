@@ -112,6 +112,18 @@ public class Controlador implements ActionListener{
         }
           
     }
+    
+    public void BuscarClienteAbonar(String ID, double Pago){
+        this.BuscarCliente(ID);
+        if (modelo.Abonar(ID, Pago)){
+            this.BuscarCliente(ID);
+        }else{
+            this.view_cliente.T_buscarclientes.setText("");
+            this.view_cliente.T_pago.setText("");
+        }
+        
+          
+    }
     @Override
     public void actionPerformed(ActionEvent ae) {
         String command = ae.getActionCommand();
@@ -151,6 +163,12 @@ public class Controlador implements ActionListener{
             case "B_buscar":
                 this.BuscarCliente(view_cliente.T_buscarclientes.getText());
                 break;
+            
+            case "B_abonar":
+                this.BuscarClienteAbonar(view_cliente.T_buscarclientes.getText(),Double.parseDouble(view_cliente.T_pago.getText()));
+                break;
+                
+                
                 
             case "salir_vista_clientes":
                 this.view_cliente.dispose();

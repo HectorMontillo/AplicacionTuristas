@@ -94,8 +94,19 @@ public class Modelo{
         }
         
     }
-    public boolean Abonar(){
-        return true;
+    public boolean Abonar(String ID, double Pago){
+        if (sql.Abonar(ID, Pago)){
+            JOptionPane.showMessageDialog(null, "Se hizo un abono de : "+Pago);
+            return true;
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay registros de: "+ID,"error",JOptionPane.OK_OPTION);
+            return false;
+        
+        }
+        
+        
+        
     }
     
     

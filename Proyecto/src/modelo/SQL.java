@@ -190,6 +190,7 @@ public class SQL extends Conexion{
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setRiesgo(rs.getInt("id_riesgo"));
                 cliente.setAbonado(rs.getDouble("saldo_acumulado"));
+                System.out.println(cliente.getAbonado());
                 cliente.setSaldoTotal(rs.getDouble("saldo_total")); 
                 rs.close();
                 st.close();
@@ -207,6 +208,37 @@ public class SQL extends Conexion{
         }
               
     }
+     
+     public boolean Abonar(String ID,double abono){
+      
+       PreparedStatement ps = null; 
+       Connection con = getConexion(); 
+       
+       Cliente cliente = this.BuscarCliente(ID);
+       
+       cliente.Abonar(abono);
+         System.out.println(cliente.getAbonado()+" "+cliente.getSaldoTotal());
+       
+       String sql = "UPDATE cliente SET saldo_acumulado = ?, saldo_total = ? WHERE id_cliente = ?;";
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setDouble(1, cliente.getAbonado());
+           ps.setDouble(2, cliente.getSaldoTotal());
+           ps.setString(3, cliente.getID());
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+           Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "Error al abononar","Error",JOptionPane.OK_OPTION);
+           return false; 
+       }
+  }
+  
     
 
     
