@@ -4,10 +4,11 @@ package modelo;
 public class Aerolinea {
     private int ID;
     private String Nombre;
+    private double Preciobase;
     
     public Aerolinea(){}
 
-    public Aerolinea(int ID, String Nombre) {
+    public Aerolinea(int ID, String Nombre, double Preciobase) {
         this.ID = ID;
         this.Nombre = Nombre;
     }
@@ -26,6 +27,14 @@ public class Aerolinea {
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
+    }
+
+    public double getPreciobase() {
+        return Preciobase;
+    }
+
+    public void setPreciobase(double Preciobase) {
+        this.Preciobase = Preciobase;
     }
     
     

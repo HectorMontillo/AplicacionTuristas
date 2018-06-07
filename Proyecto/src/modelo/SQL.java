@@ -151,17 +151,18 @@ public class SQL extends Conexion{
        
    }
     
-    public boolean agregarPaquete(String nombre_paquete, String destino){
+    public boolean agregarPaquete(String nombre_paquete, String destino, double precio){
         
        PreparedStatement ps = null; 
        Connection con = getConexion();   
        
-       String sql= "INSERT INTO paquete(nombre,destino) VALUES(?,?)"; 
+       String sql= "INSERT INTO paquete(nombre,destino,precio) VALUES(?,?,?)"; 
        
        try {
            ps = con.prepareStatement(sql);
            ps.setString(1, nombre_paquete);
            ps.setString(2, destino);
+           ps.setDouble(3, precio);
            ps.execute();
            
            ps.close();
@@ -288,13 +289,13 @@ public class SQL extends Conexion{
     }
     
 
-    public boolean registrarExcursion(String id_operador,int id_hotel, String lugar,int dias){
+    public boolean registrarExcursion(String id_operador,int id_hotel, String lugar,int dias, double precio){
         
         PreparedStatement ps = null; 
        Connection con = getConexion();   
        
-       String sql= "INSERT INTO excursion(id_operador,id_hotel,lugar,dias)"
-               + " VALUES(?,?,?,?)"; 
+       String sql= "INSERT INTO excursion(id_operador,id_hotel,lugar,dias,precio)"
+               + " VALUES(?,?,?,?,?)"; 
        
        try {
            ps = con.prepareStatement(sql);
@@ -302,6 +303,7 @@ public class SQL extends Conexion{
            ps.setInt(2, id_hotel);
            ps.setString(3, lugar);
            ps.setInt(4, dias);
+           ps.setDouble(5, precio);
            ps.execute();
            
            ps.close();
@@ -486,6 +488,7 @@ public class SQL extends Conexion{
                 ex.setLugar(rs.getString("lugar"));
                 ex.setIDHotel(rs.getInt("id_hotel"));
                 ex.setDias(rs.getInt("dias"));
+                ex.setPreciobase(rs.getDouble("precio"));
                 Excursiones.add(ex); 
             }
             rs.close();
@@ -515,6 +518,7 @@ public class SQL extends Conexion{
                 paquete.setDestino(rs.getString("destino"));
                 paquete.setID(rs.getInt("id_paquete"));
                 paquete.setNombre(rs.getString("nombre"));
+                paquete.setPreciobase(rs.getDouble("precio"));
                 Paquetes.add(paquete);
             }
             
@@ -545,10 +549,11 @@ public class SQL extends Conexion{
                Paquete paquete; 
                ExcursionPlus ex; 
                 id_paquete = rs.getInt("id_paquete");
-                id_excursion = rs.getInt("id_paquete");
+                id_excursion = rs.getInt("id_excursion");
                 
                 paquete = (Paquete)Paquetes.get(id_paquete-1);
                 ex = (ExcursionPlus)Excursiones.get(id_excursion-1);
+                
                 
                 paquete.AgregarExcursion(ex); 
                 
@@ -579,6 +584,7 @@ public class SQL extends Conexion{
                 Aerolinea aerolinea = new Aerolinea();
                 aerolinea.setID(rs.getInt("id_aero"));
                 aerolinea.setNombre(rs.getString("nombre"));
+                aerolinea.setPreciobase(rs.getDouble("precio"));
                 Aerolineas.add(aerolinea);
             }
             

@@ -145,9 +145,9 @@ public class Controlador implements ActionListener{
         
     }
     
-    public void crearPaquete(String nombre_paquete, String destino){
+    public void crearPaquete(String nombre_paquete, String destino, double Preciobase){
         
-        if(modelo.CrearPaquete(nombre_paquete, destino)){
+        if(modelo.CrearPaquete(nombre_paquete, destino, Preciobase)){
             view_paquete.setVisible(true);
             modelo.cargarCombo(view_paquete);
             view_destino.T_nombrepaquete.setText("");
@@ -223,7 +223,7 @@ public class Controlador implements ActionListener{
                 view_main.setVisible(false);
                 break; 
             case "Agregar_paquete_des":
-                this.crearPaquete(view_destino.T_nombrepaquete.getText(),view_destino.T_destino.getText());
+                this.crearPaquete(view_destino.T_nombrepaquete.getText(),view_destino.T_destino.getText(),0.0);
                 break; 
             case "salir_destino":
                 view_destino.dispose();
@@ -243,7 +243,7 @@ public class Controlador implements ActionListener{
                 //nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString();
                 System.out.println("idopera: "+id_operador);
                 System.out.println("nomhotel: "+nom_hotel);
-                if(modelo.CrearExcursion(lugar, id_operador, nom_hotel, dias)){
+                if(modelo.CrearExcursion(lugar, id_operador, nom_hotel, dias, 0.0)){
                     view_paquete.setVisible(true);
                     view_excursion.setVisible(false);
                 }
@@ -325,15 +325,33 @@ public class Controlador implements ActionListener{
                 int indexvuelo = Integer.parseInt(cindex);
                 
                 Paquete paquete = (Paquete)modelo.Paquetes.get(indexpaquete);
+                Aerolinea aero = (Aerolinea)modelo.Aerolineas.get(indexvuelo);
+                
+                String clase = this.view_reserva.List_clase.getSelectedValue();
+                double claseprecio = aero.getPreciobase();
+              
+                if (clase == "media"){
+                    claseprecio += 100000;
+                }else if(clase == "alta"){
+                    claseprecio += 200000;
+                }
+                
+                double preciototal = paquete.getPreciobase()+claseprecio;
                 
                 
                 this.view_reserva.TA_reservasdescripcion.setText("Paquete : "+paquete.getNombre()
-                        +"\nDestino : "+paquete.getDestino()
-                        +"\nExcursiones__________________ \n");
+                        +"\nDestino : "+paquete.getDestino()+"\nPrecio base : "+paquete.getPreciobase()
+                        +"\nExcursiones\n__________________ \n");
+                
                 for (int i=0; i<paquete.Excursiones.size(); i++){
-                    ExcursionPlus ex = (ExcursionPlus)modelo.Excursiones.get(i);
-                     this.view_reserva.TA_reservasdescripcion.append("Excursion: "+ex.getLugar()+"\nLugar: "+ex.getLugar()+"\n__________________\n");
+                    ExcursionPlus ex = (ExcursionPlus)paquete.Excursiones.get(i);
+                     this.view_reserva.TA_reservasdescripcion.append("Excursion: "+ex.getLugar()+" x "+ex.getDias()+" Dias = "+(ex.getDias()*ex.getPreciobase())+"\n__________________\n");
+                     preciototal += ex.getDias()*ex.getPreciobase();
                 }
+                
+                this.view_reserva.TA_reservasdescripcion.append("Vuelo:\nAerolinea : "+aero.getNombre()+"\nClase : "+clase+"\nPrecio : "+claseprecio);
+                this.view_reserva.L_precio.setText(preciototal+" $");
+                
                 
                 break;
                 
