@@ -249,10 +249,14 @@ public class Controlador implements ActionListener{
                 String clase = this.view_reserva.List_clase.getSelectedValue();
                 double claseprecio = aero.getPreciobase();
                 int dias = 0;
+                int dia = 0;
+                int mes;
+                int diafin;
+                int mesfin = 0;
               
-                if (clase == "Media"){
+                if ("Media".equals(clase)){
                     claseprecio += 100000;
-                }else if(clase == "Alta"){
+                }else if("Alta".equals(clase)){
                     claseprecio += 200000;
                 }
                 double preciototal = paquete.getPreciobase()+claseprecio;
@@ -264,9 +268,24 @@ public class Controlador implements ActionListener{
                 if ("dia".equals(this.view_reserva.T_fechainicio.getText()) || "mes".equals(this.view_reserva.T_fechainicio1.getText()) ){
                     JOptionPane.showMessageDialog(null, "Ingrese un día y un mes válido","error",JOptionPane.OK_OPTION);
                 }else{
-                    int dia = Integer.parseInt(this.view_reserva.T_fechainicio.getText());
-                    int mes = Integer.parseInt(this.view_reserva.T_fechainicio1.getText());
+                    dia = Integer.parseInt(this.view_reserva.T_fechainicio.getText());
+                    mes = Integer.parseInt(this.view_reserva.T_fechainicio1.getText());
+                    int meses = 0;
+                    int diascont = dias + dia;
+                    while(diascont > 31){
+                        diascont -= 31;
+                        meses += 1;
+                    }
+                    diafin = diascont;
+                    mesfin = mes+meses;
+                    while(mesfin > 12){
+                        mesfin -= 12;
+                    }
+                    
+                    
                 }
+
+                
                 
                 
                 

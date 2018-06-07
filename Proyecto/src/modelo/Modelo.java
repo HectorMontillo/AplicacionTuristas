@@ -22,6 +22,7 @@ public class Modelo{
     public ArrayList Aerolineas = new ArrayList();
     public ArrayList Operadores = new ArrayList();
     public ArrayList Hoteles = new ArrayList();
+    public ArrayList Reservas = new ArrayList();
 
     
     public Modelo(){}
