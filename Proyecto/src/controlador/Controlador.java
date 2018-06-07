@@ -235,6 +235,44 @@ public class Controlador implements ActionListener{
         }
         this.view_paquete.setVisible(true);
     }
+    public void ReservarPaquete(){
+        String sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
+                String cindex = sindex.substring(0,1);
+                int indexpaquete = Integer.parseInt(cindex);
+                sindex = (String)this.view_reserva.CB_reservavuelo.getSelectedItem();
+                cindex = sindex.substring(0,1);
+                int indexvuelo = Integer.parseInt(cindex);
+                
+                Paquete paquete = (Paquete)modelo.Paquetes.get(indexpaquete);
+                Aerolinea aero = (Aerolinea)modelo.Aerolineas.get(indexvuelo);
+                
+                String clase = this.view_reserva.List_clase.getSelectedValue();
+                double claseprecio = aero.getPreciobase();
+                int dias = 0;
+              
+                if (clase == "Media"){
+                    claseprecio += 100000;
+                }else if(clase == "Alta"){
+                    claseprecio += 200000;
+                }
+                double preciototal = paquete.getPreciobase()+claseprecio;
+                for (int i=0; i<paquete.Excursiones.size(); i++){
+                    ExcursionPlus ex = (ExcursionPlus)paquete.Excursiones.get(i);
+                    preciototal += ex.getDias()*ex.getPreciobase();
+                    dias += ex.getDias();
+                }
+                if ("dia".equals(this.view_reserva.T_fechainicio.getText()) || "mes".equals(this.view_reserva.T_fechainicio1.getText()) ){
+                    JOptionPane.showMessageDialog(null, "Ingrese un día y un mes válido","error",JOptionPane.OK_OPTION);
+                }else{
+                    int dia = Integer.parseInt(this.view_reserva.T_fechainicio.getText());
+                    int mes = Integer.parseInt(this.view_reserva.T_fechainicio1.getText());
+                }
+                
+                
+                
+                
+        
+    }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -371,9 +409,9 @@ public class Controlador implements ActionListener{
                 String clase = this.view_reserva.List_clase.getSelectedValue();
                 double claseprecio = aero.getPreciobase();
               
-                if (clase == "media"){
+                if (clase == "Media"){
                     claseprecio += 100000;
-                }else if(clase == "alta"){
+                }else if(clase == "Alta"){
                     claseprecio += 200000;
                 }
                 
@@ -404,7 +442,7 @@ public class Controlador implements ActionListener{
                 break;
 
             case "hacer_reserva":
-                //this.ReservarPaquete();
+                this.ReservarPaquete();
                 break;
             case "salir_paquete_exc":
                 view_paquete.setVisible(false);
