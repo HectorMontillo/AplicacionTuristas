@@ -1,4 +1,7 @@
-
+/*
+Cosas por hacer
+agregar precio en aerolinea, paquete, excursion, reserva
+*/
 package proyecto;
 
 import controlador.Controlador;

@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import modelo.Hotel;
 import modelo.Modelo;
+import modelo.Operador;
 import modelo.Paquete;
 import vista.*;
 
@@ -56,18 +58,21 @@ public class Controlador implements ActionListener{
         this.view_paquete.B_CrearPaqueteExcursionesAgregar.setActionCommand("Agregar_excursion");
         this.view_paquete.B_CrearPaqueteExcursionesOk.addActionListener(this);
         this.view_paquete.B_CrearPaqueteExcursionesOk.setActionCommand("Add_paquete_excursion");
-        this.view_paquete.CB_listapaquetes.addActionListener(this);
-        this.view_paquete.CB_listapaquetes.setActionCommand("lista_paquetes");
+        //this.view_paquete.CB_listapaquetes.addActionListener(this);
+        //this.view_paquete.CB_listapaquetes.setActionCommand("lista_paquetes");
         this.view_paquete.B_ExcursionDecorator.addActionListener(this);
         this.view_paquete.B_ExcursionDecorator.setActionCommand("Exc_Decorator"); 
+        this.view_paquete.B_salirpaqueteexcursion.addActionListener(this);
+        this.view_paquete.B_salirpaqueteexcursion.setActionCommand("salir_paquete_exc");
         // Vista Excursiones
         this.view_excursion.B_RegistrarExcursion.addActionListener(this);
         this.view_excursion.B_RegistrarExcursion.setActionCommand("Registrar_excursion");
-        this.view_excursion.CB_VistaExcursionesOperador.addActionListener(this);
-        this.view_excursion.CB_VistaExcursionesOperador.setActionCommand("lista_operadores");
-        this.view_excursion.CB_VistaExcursionesHotel.addActionListener(this);
-        this.view_excursion.CB_VistaExcursionesHotel.setActionCommand("lista_hoteles");
-        
+        //this.view_excursion.CB_VistaExcursionesOperador.addActionListener(this);
+        //this.view_excursion.CB_VistaExcursionesOperador.setActionCommand("lista_operadores");
+        //this.view_excursion.CB_VistaExcursionesHotel.addActionListener(this);
+        //this.view_excursion.CB_VistaExcursionesHotel.setActionCommand("lista_hoteles");
+        this.view_excursion.B_CancelarExcursion.addActionListener(this);
+        this.view_excursion.B_CancelarExcursion.setActionCommand("cancelar_excursion");
         //Botones vista clientes
         this.view_cliente.B_buscar.addActionListener(this);
         this.view_cliente.B_buscar.setActionCommand("B_buscar");
@@ -137,13 +142,17 @@ public class Controlador implements ActionListener{
         
     }
     
-    public void crearPaquete(String nombre_paquete, String destino){
+    public void crearPaquete(String nombre_paquete, String destino,double precio){
         
-        if(modelo.CrearPaquete(nombre_paquete, destino)){
+        if(modelo.CrearPaquete(nombre_paquete, destino,precio)){
+            this.cargarCBpaquetes();
+            this.cargarCBoperadores();
+            this.cargarCBHoteles();
             view_paquete.setVisible(true);
-            modelo.cargarCombo(view_paquete);
+            view_destino.setVisible(false); 
             view_destino.T_nombrepaquete.setText("");
             view_destino.T_destino.setText("");
+            view_destino.T_preciopaquete.setText(""); 
         }
         else{
             view_destino.T_nombrepaquete.setText("");
@@ -183,7 +192,36 @@ public class Controlador implements ActionListener{
         this.view_reserva.setVisible(true);
  
     }
-
+    
+    // metodo para cargar comboBox de vista crear paquetes 
+    public void VistaCrearPaquete(){
+        this.view_main.dispose();
+        this.cargarCBpaquetes();
+        this.cargarCBoperadores();
+        this.cargarCBHoteles(); 
+    }
+    
+    public void cargarCBpaquetes(){
+        for(int i = 0; i < modelo.Paquetes.size(); i++){
+            Paquete paquete = (Paquete)modelo.Paquetes.get(i);
+            this.view_paquete.CB_listapaquetes.addItem(paquete.getNombre());
+        }
+    }
+    public void cargarCBoperadores(){
+        // ciclo para cargar CB 
+        for(int i = 0; i < modelo.Operadores.size(); i++){
+            Operador operador = (Operador)modelo.Operadores.get(i);
+            this.view_excursion.CB_VistaExcursionesOperador.addItem(operador.getId_operador());
+        }
+    }
+    public void cargarCBHoteles(){
+        // caragar hoteles
+        for(int i = 0; i < modelo.Operadores.size(); i++){
+            Hotel hotel = (Hotel)modelo.Hoteles.get(i);
+            this.view_excursion.CB_VistaExcursionesHotel.addItem(hotel.getNombre());
+        }
+        this.view_paquete.setVisible(true);
+    }
     @Override
     public void actionPerformed(ActionEvent ae) {
         String command = ae.getActionCommand();
@@ -204,14 +242,17 @@ public class Controlador implements ActionListener{
                 }
                 else{
                     // si no desea 1 nuevo paquete, entonces se trabaja con los paquetes existentes 
-                    view_paquete.setVisible(true);
-                    System.out.println("wer");
-                    modelo.cargarCombo(view_paquete);
+                    this.VistaCrearPaquete(); 
+                    //this.crearPaquete(nom_paquete, command);
+                    //view_paquete.setVisible(true);
+                    //System.out.println("wer");
+                    //modelo.cargarCombo(view_paquete);
                 }
-                view_main.setVisible(false);
+                //view_main.setVisible(false);
                 break; 
             case "Agregar_paquete_des":
-                this.crearPaquete(view_destino.T_nombrepaquete.getText(),view_destino.T_destino.getText());
+                Double precio = Double.parseDouble(view_destino.T_preciopaquete.getText()); 
+                this.crearPaquete(view_destino.T_nombrepaquete.getText(),view_destino.T_destino.getText(),precio);
                 break; 
             case "salir_destino":
                 view_destino.dispose();
@@ -220,31 +261,36 @@ public class Controlador implements ActionListener{
 
             case "Agregar_excursion":
                 view_excursion.setVisible(true);
-                modelo.cargarComboOperadores(view_excursion);
-                modelo.cargarComboHoteles(view_excursion);
+                //modelo.cargarComboOperadores(view_excursion);
+                //modelo.cargarComboHoteles(view_excursion);
                 break; 
                 
             case "Registrar_excursion":
                 String lugar =view_excursion.T_VistaExcursionesLugar.getText();
                 int dias = Integer.parseInt(view_excursion.T_VistaExcursionesDias.getText()); 
-                //id_operador = view_excursion.CB_VistaExcursionesOperador.getSelectedItem().toString();
-                //nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString();
-                System.out.println("idopera: "+id_operador);
-                System.out.println("nomhotel: "+nom_hotel);
-                if(modelo.CrearExcursion(lugar, id_operador, nom_hotel, dias)){
+                double precio_exc = Double.parseDouble(view_excursion.T_precioexcursion.getText());
+                id_operador = view_excursion.CB_VistaExcursionesOperador.getSelectedItem().toString();
+                nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString();
+
+                if(modelo.CrearExcursion(lugar, id_operador, nom_hotel, dias,precio_exc)){
                     view_paquete.setVisible(true);
                     view_excursion.setVisible(false);
+                    view_excursion.T_VistaExcursionesLugar.setText("");
+                    view_excursion.T_VistaExcursionesDias.setText("");
+                    view_excursion.T_precioexcursion.setText("");
                 }
                 break; 
                 
             case "Add_paquete_excursion":
-                //String nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
+                nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
                 if(modelo.CrearPaqueteExcursion(nom_paquete)){
-                    view_paquete.setVisible(false); 
-                    view_main.setVisible(true);
+                    view_excursion.T_VistaExcursionesLugar.setText("");
+                    view_excursion.T_VistaExcursionesDias.setText("");
+                    //view_paquete.setVisible(false); 
+                    //view_main.setVisible(true);
                 }
                 break;
-            case "lista_paquetes":
+            /*case "lista_paquetes":
                 nom_paquete = view_paquete.CB_listapaquetes.getSelectedItem().toString();
                 break; 
             case "lista_operadores":
@@ -252,7 +298,7 @@ public class Controlador implements ActionListener{
                 break;
             case "lista_hoteles":
                 nom_hotel = view_excursion.CB_VistaExcursionesHotel.getSelectedItem().toString(); 
-                break;
+                break; */
      
             case "listado_clientes":
                 this.view_cliente.setVisible(true);
@@ -306,8 +352,17 @@ public class Controlador implements ActionListener{
             case "hacer_reserva":
                 //this.ReservarPaquete();
                 break;
-                
-                
+            case "salir_paquete_exc":
+                view_paquete.setVisible(false);
+                view_paquete.CB_listapaquetes.removeAllItems();
+                view_excursion.CB_VistaExcursionesOperador.removeAllItems();
+                view_excursion.CB_VistaExcursionesHotel.removeAllItems();
+                view_main.setVisible(true); 
+                break; 
+            case "salir_excursion":
+                view_excursion.setVisible(false);
+                view_paquete.setVisible(true);
+                break;
             default:
                 System.out.println("Error en acción");
         }

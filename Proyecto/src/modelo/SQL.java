@@ -151,17 +151,18 @@ public class SQL extends Conexion{
        
    }
     
-    public boolean agregarPaquete(String nombre_paquete, String destino){
+    public boolean agregarPaquete(String nombre_paquete, String destino,double precio){
         
        PreparedStatement ps = null; 
        Connection con = getConexion();   
        
-       String sql= "INSERT INTO paquete(nombre,destino) VALUES(?,?)"; 
+       String sql= "INSERT INTO paquete(nombre,destino,precio) VALUES(?,?,?)"; 
        
        try {
            ps = con.prepareStatement(sql);
            ps.setString(1, nombre_paquete);
            ps.setString(2, destino);
+           ps.setDouble(3, precio); 
            ps.execute();
            
            ps.close();
@@ -288,13 +289,13 @@ public class SQL extends Conexion{
     }
     
 
-    public boolean registrarExcursion(String id_operador,int id_hotel, String lugar,int dias){
+    public boolean registrarExcursion(String id_operador,int id_hotel, String lugar,int dias,double precio){
         
         PreparedStatement ps = null; 
        Connection con = getConexion();   
        
-       String sql= "INSERT INTO excursion(id_operador,id_hotel,lugar,dias)"
-               + " VALUES(?,?,?,?)"; 
+       String sql= "INSERT INTO excursion(id_operador,id_hotel,lugar,dias,precio)"
+               + " VALUES(?,?,?,?,?)"; 
        
        try {
            ps = con.prepareStatement(sql);
@@ -302,6 +303,7 @@ public class SQL extends Conexion{
            ps.setInt(2, id_hotel);
            ps.setString(3, lugar);
            ps.setInt(4, dias);
+           ps.setDouble(5, precio); 
            ps.execute();
            
            ps.close();
@@ -565,7 +567,60 @@ public class SQL extends Conexion{
 
             }
     }
+     
+    public boolean CargarOperadores(ArrayList Operadores){
+        
+       Connection con = getConexion();
+        String sql = "SELECT * FROM operador";      
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Operador opera = new Operador();
+                opera.setId_operador(rs.getString("id_operador"));
+                opera.setNombre(rs.getString("nombre"));
+                Operadores.add(opera); 
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                    return false;
+            } 
+    }
     
+    public boolean CargarHoteles(ArrayList Hoteles){
+        
+       Connection con = getConexion();
+        String sql = "SELECT * FROM hotel";      
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Hotel hotel = new Hotel();
+                hotel.setId_hotel(rs.getInt("id_hotel"));
+                hotel.setNombre(rs.getString("nombre"));
+                hotel.setEstrellas(rs.getInt("estrellas"));
+                hotel.setCosto_noche(rs.getDouble("costo_noche"));
+                Hoteles.add(hotel); 
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                    return false;
+            } 
+    }
     
     
     /*
