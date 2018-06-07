@@ -7,7 +7,7 @@ public class Paquete {
     int ID;
     String Nombre;
     String Destino;
-    ArrayList Excursiones = new ArrayList();
+    public ArrayList Excursiones = new ArrayList();
     
     
     public Paquete(){}

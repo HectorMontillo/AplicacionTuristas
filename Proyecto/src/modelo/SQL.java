@@ -566,6 +566,34 @@ public class SQL extends Conexion{
             }
     }
     
+    public boolean CargarAerolineas(ArrayList Aerolineas){
+        
+        Connection con = getConexion();
+        String sql = "SELECT * FROM aerolinea";
+        
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Aerolinea aerolinea = new Aerolinea();
+                aerolinea.setID(rs.getInt("id_aero"));
+                aerolinea.setNombre(rs.getString("nombre"));
+                Aerolineas.add(aerolinea);
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+
+            } catch (SQLException ea) {
+                    
+                JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                return false;
+
+            }
+    }
     
     
     /*

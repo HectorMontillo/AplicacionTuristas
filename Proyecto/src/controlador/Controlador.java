@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import modelo.Aerolinea;
+import modelo.ExcursionPlus;
 import modelo.Modelo;
 import modelo.Paquete;
 import vista.*;
@@ -82,6 +84,12 @@ public class Controlador implements ActionListener{
         this.view_reserva.B_cancelar.setActionCommand("salir_reserva");
         this.view_reserva.B_hacerreserva.addActionListener(this);
         this.view_reserva.B_hacerreserva.setActionCommand("hacer_reserva");
+        this.view_reserva.B_actualizar.addActionListener(this);
+        this.view_reserva.B_actualizar.setActionCommand("actualizar");
+        /*this.view_reserva.CB_ReservasPaquetes.addActionListener(this);
+        this.view_reserva.CB_ReservasPaquetes.setActionCommand("combobox_reserva");
+        this.view_reserva.CB_reservavuelo.addActionListener(this);
+        this.view_reserva.CB_reservavuelo.setActionCommand("combobox_vuelo");*/
         
         
         // vista Excursion_Decorator
@@ -178,11 +186,15 @@ public class Controlador implements ActionListener{
         this.view_main.dispose();
         for(int i = 0; i < modelo.Paquetes.size(); i++){
             Paquete paquete = (Paquete)modelo.Paquetes.get(i);
-            this.view_reserva.CB_ReservasPaquetes.addItem(paquete.getNombre());
+            this.view_reserva.CB_ReservasPaquetes.addItem(i+" "+paquete.getNombre());
+        }
+        for(int i = 0; i < modelo.Aerolineas.size(); i++){
+            Aerolinea aerolinea = (Aerolinea)modelo.Aerolineas.get(i);
+            this.view_reserva.CB_reservavuelo.addItem(i+" "+aerolinea.getNombre());
         }
         this.view_reserva.setVisible(true);
- 
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -297,19 +309,44 @@ public class Controlador implements ActionListener{
                 this.VistaReservarPaquete();
                 break;
                 
-             case "salir_reserva":
+             
+                
+            case "hacer_reserva":
+                
+                break;
+                
+            case "actualizar":
+              
+                String sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
+                String cindex = sindex.substring(0,1);
+                int indexpaquete = Integer.parseInt(cindex);
+                sindex = (String)this.view_reserva.CB_reservavuelo.getSelectedItem();
+                cindex = sindex.substring(0,1);
+                int indexvuelo = Integer.parseInt(cindex);
+                
+                Paquete paquete = (Paquete)modelo.Paquetes.get(indexpaquete);
+                
+                
+                this.view_reserva.TA_reservasdescripcion.setText("Paquete : "+paquete.getNombre()
+                        +"\nDestino : "+paquete.getDestino()
+                        +"\nExcursiones__________________ \n");
+                for (int i=0; i<paquete.Excursiones.size(); i++){
+                    ExcursionPlus ex = (ExcursionPlus)modelo.Excursiones.get(i);
+                     this.view_reserva.TA_reservasdescripcion.append("Excursion: "+ex.getLugar()+"\nLugar: "+ex.getLugar()+"\n__________________\n");
+                }
+                
+                break;
+                
+            case "salir_reserva":
                 this.view_reserva.CB_ReservasPaquetes.removeAllItems();
+                this.view_reserva.CB_reservavuelo.removeAllItems();
                 this.view_reserva.dispose();
                 this.view_main.setVisible(true);
                 break;
                 
-            case "hacer_reserva":
-                //this.ReservarPaquete();
-                break;
-                
                 
             default:
-                System.out.println("Error en acción");
+                System.out.println(command);
         }
         
         

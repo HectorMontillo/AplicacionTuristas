@@ -49,6 +49,8 @@ public class ViewReserva extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         B_hacerreserva = new javax.swing.JButton();
         B_cancelar = new javax.swing.JButton();
+        T_fechainicio1 = new javax.swing.JTextField();
+        B_actualizar = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -100,13 +102,20 @@ public class ViewReserva extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Precio Total :");
 
-        L_fechainicio.setText("Fecha");
-
-        L_precio.setText("Precio");
+        T_fechainicio.setText("dia");
+        T_fechainicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                T_fechainicioKeyTyped(evt);
+            }
+        });
 
         B_hacerreserva.setText("Reservar");
 
         B_cancelar.setText("Cancelar");
+
+        T_fechainicio1.setText("mes");
+
+        B_actualizar.setText("Actualizar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,22 +133,9 @@ public class ViewReserva extends javax.swing.JFrame {
                         .addComponent(CB_ReservasPaquetes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(T_fechainicio))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(64, 64, 64)
                         .addComponent(CB_reservavuelo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(L_fechainicio)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +143,23 @@ public class ViewReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(B_cancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(B_hacerreserva)))
+                        .addComponent(B_hacerreserva))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(L_fechainicio))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(T_fechainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(T_fechainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(B_actualizar)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,7 +182,9 @@ public class ViewReserva extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(T_fechainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(T_fechainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(T_fechainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B_actualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -208,6 +222,12 @@ public class ViewReserva extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_B_reservarActionPerformed
 
+    private void T_fechainicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_T_fechainicioKeyTyped
+        char c = evt.getKeyChar();
+        if (c<'0' || c >'9')evt.consume();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_fechainicioKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +264,7 @@ public class ViewReserva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton B_actualizar;
     public javax.swing.JButton B_cancelar;
     public javax.swing.JButton B_hacerreserva;
     public javax.swing.JButton B_reservar;
@@ -253,6 +274,7 @@ public class ViewReserva extends javax.swing.JFrame {
     public javax.swing.JLabel L_precio;
     public javax.swing.JTextArea TA_reservasdescripcion;
     public javax.swing.JTextField T_fechainicio;
+    public javax.swing.JTextField T_fechainicio1;
     public javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

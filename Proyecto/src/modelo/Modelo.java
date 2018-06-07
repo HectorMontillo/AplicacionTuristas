@@ -19,6 +19,7 @@ public class Modelo{
     
     public ArrayList Paquetes = new ArrayList();
     public ArrayList Excursiones = new ArrayList();
+    public ArrayList Aerolineas = new ArrayList();
     
     public Modelo(){}
     
@@ -190,6 +191,9 @@ public class Modelo{
     public void CargarDatos(){
         sql.CargarPaquetes(Paquetes);
         sql.CargarExcursiones(Excursiones);   
+        
+        
+        sql.CargarAerolineas(Aerolineas);
     }
     
     
