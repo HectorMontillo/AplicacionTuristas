@@ -7,15 +7,25 @@ public class ExcursionPlus {
     private int IDHotel;
     private String Lugar;
     private int Dias;
+    private double precio;
     
     public ExcursionPlus(){}
 
-    public ExcursionPlus(int ID, String IDOperador, int IDHotel, String Lugar, int Dias) {
+    public ExcursionPlus(int ID, String IDOperador, int IDHotel, String Lugar, int Dias, double precio) {
         this.ID = ID;
         this.IDOperador = IDOperador;
         this.IDHotel = IDHotel;
         this.Lugar = Lugar;
         this.Dias = Dias;
+        this.precio = precio; 
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     public int getID() {

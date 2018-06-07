@@ -18,8 +18,8 @@ public class Paquete {
         this.Destino = Destino;
     }
     
-    public void AgregarExcursion(int ID,String IDOperador, int IDHotel, String Lugar,int Dias){
-        ExcursionPlus ex = new ExcursionPlus(ID,IDOperador,IDHotel,Lugar,Dias);
+    public void AgregarExcursion(int ID,String IDOperador, int IDHotel, String Lugar,int Dias, double precio){
+        ExcursionPlus ex = new ExcursionPlus(ID,IDOperador,IDHotel,Lugar,Dias, precio);
         Excursiones.add(ex);
         }
     

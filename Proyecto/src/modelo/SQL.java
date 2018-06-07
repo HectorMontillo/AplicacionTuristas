@@ -488,6 +488,7 @@ public class SQL extends Conexion{
                 ex.setLugar(rs.getString("lugar"));
                 ex.setIDHotel(rs.getInt("id_hotel"));
                 ex.setDias(rs.getInt("dias"));
+                ex.setPrecio(rs.getDouble("precio"));
                 Excursiones.add(ex); 
             }
             rs.close();
@@ -547,7 +548,7 @@ public class SQL extends Conexion{
                Paquete paquete; 
                ExcursionPlus ex; 
                 id_paquete = rs.getInt("id_paquete");
-                id_excursion = rs.getInt("id_paquete");
+                id_excursion = rs.getInt("id_excursion");
                 
                 paquete = (Paquete)Paquetes.get(id_paquete-1);
                 ex = (ExcursionPlus)Excursiones.get(id_excursion-1);

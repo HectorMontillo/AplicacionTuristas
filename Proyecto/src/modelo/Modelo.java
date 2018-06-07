@@ -86,12 +86,16 @@ public class Modelo{
         }
     }
     
+    // cuando se registra en la base, tambien lo hace en las listas de excursiones
     public boolean CrearExcursion(String lugar, String id_operador, String hotel, int dias,double precio){
         
         boolean result = false;
         int id_hotel = sql.obtenerIdHotel(hotel);
         if(id_hotel != 0){ // si retorna cero es porq hay 1 error 
             if(sql.registrarExcursion(id_operador,id_hotel,lugar,dias,precio)){
+                int id_ex = Excursiones.size();
+                ExcursionPlus excur = new ExcursionPlus(id_ex,id_operador,id_hotel,lugar,dias,precio); 
+                Excursiones.add(excur);
                 JOptionPane.showMessageDialog(null, "Se registro la excursion"); 
                 result= true; 
             }
@@ -175,7 +179,7 @@ public class Modelo{
         } 
         if(op_exc == 3){
             sql.registrarPaqueteExcursion(id_paquete, 4);
-            excursion = new Otun(excursion); 
+            excursion = new Florida(excursion); 
         }
         return excursion.getExcursion();
         
