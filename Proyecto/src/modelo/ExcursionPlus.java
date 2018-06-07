@@ -7,6 +7,7 @@ public class ExcursionPlus {
     private int IDHotel;
     private String Lugar;
     private int Dias;
+
     private double Preciobase;
     
     public ExcursionPlus(){}
@@ -18,6 +19,16 @@ public class ExcursionPlus {
         this.Lugar = Lugar;
         this.Dias = Dias;
         this.Preciobase = Preciobase;
+
+    }
+
+    public double getPrecio() {
+        return Preciobase;
+    }
+
+    public void setPrecio(double precio) {
+        this.Preciobase = precio;
+
     }
 
     public int getID() {

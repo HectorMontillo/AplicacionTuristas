@@ -20,6 +20,7 @@ public class Paquete {
         this.Preciobase = Preciobase;
     }
     
+
     public void AgregarExcursion(int ID,String IDOperador, int IDHotel, String Lugar,int Dias,double Preciobase){
         ExcursionPlus ex = new ExcursionPlus(ID,IDOperador,IDHotel,Lugar,Dias,Preciobase);
         Excursiones.add(ex);

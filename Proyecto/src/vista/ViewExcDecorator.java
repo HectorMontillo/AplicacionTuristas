@@ -16,6 +16,7 @@ public class ViewExcDecorator extends javax.swing.JFrame {
      */
     public ViewExcDecorator() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -36,6 +37,7 @@ public class ViewExcDecorator extends javax.swing.JFrame {
         B_otun = new javax.swing.JButton();
         B_florida = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        B_salirdecorator = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,7 +51,9 @@ public class ViewExcDecorator extends javax.swing.JFrame {
 
         B_florida.setText("Exc Florida");
 
-        jLabel3.setText("Selecciones la excursion que desea Agregar");
+        jLabel3.setText("All seleccionar una excursion, al instante sera agregada: ");
+
+        B_salirdecorator.setText("Salir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,22 +61,24 @@ public class ViewExcDecorator extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(B_nevado)
-                        .addGap(44, 44, 44)
-                        .addComponent(B_otun)
-                        .addGap(43, 43, 43)
-                        .addComponent(B_florida))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(T_namepaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(T_excursionesadd, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(B_salirdecorator, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(T_excursionesadd, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                .addComponent(T_namepaquete)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(B_nevado)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                            .addComponent(B_otun)
+                            .addGap(55, 55, 55)
+                            .addComponent(B_florida))))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -90,10 +96,12 @@ public class ViewExcDecorator extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(B_nevado)
-                    .addComponent(B_otun)
-                    .addComponent(B_florida))
-                .addContainerGap(88, Short.MAX_VALUE))
+                    .addComponent(B_nevado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B_otun, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B_florida, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(B_salirdecorator, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,6 +160,7 @@ public class ViewExcDecorator extends javax.swing.JFrame {
     public javax.swing.JButton B_florida;
     public javax.swing.JButton B_nevado;
     public javax.swing.JButton B_otun;
+    public javax.swing.JButton B_salirdecorator;
     public javax.swing.JTextField T_excursionesadd;
     public javax.swing.JTextField T_namepaquete;
     private javax.swing.JLabel jLabel1;
