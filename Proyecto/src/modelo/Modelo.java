@@ -120,6 +120,15 @@ public class Modelo{
         
         if(id_paquete != 0 && id_excursion != 0){
             if(sql.registrarPaqueteExcursion(id_paquete,id_excursion)){ // registrar paquete_excursion
+                
+               Paquete paquete; 
+               ExcursionPlus ex; 
+                
+                paquete = (Paquete)Paquetes.get(id_paquete-1);
+                ex = (ExcursionPlus)Excursiones.get(id_excursion-1);
+                paquete.AgregarExcursion(ex); 
+                
+                //this.imprimir_paq_ex(Paquetes);
                 JOptionPane.showMessageDialog(null, "Se registro paquete-excursion");
                 result = true; 
             }
@@ -210,7 +219,18 @@ public class Modelo{
         sql.CargarOperadores(Operadores);
         sql.CargarHoteles(Hoteles);  
     }
+    /*
+    public void imprimir_paq_ex(ArrayList Paquetes){
+       //Paquete paquet;
+        for(int i= 0; i<Paquetes.size(); i++){
+            System.out.println("n: "+Paquetes.get(i));
+        }
+    }
     
-    
-    
+    public void imprimir_paq_ex2(ArrayList Excursiones){
+       
+        for(int i= 0; i<Excursiones.size(); i++){
+            System.out.println("n: "+Excursiones.get(i));
+        }
+    } */
 }
