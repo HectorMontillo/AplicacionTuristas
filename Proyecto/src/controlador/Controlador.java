@@ -11,6 +11,7 @@ import modelo.Hotel;
 import modelo.Modelo;
 import modelo.Operador;
 import modelo.Paquete;
+import modelo.Cliente;
 import vista.*;
 
 public class Controlador implements ActionListener{
@@ -91,6 +92,8 @@ public class Controlador implements ActionListener{
         this.view_reserva.B_hacerreserva.setActionCommand("hacer_reserva");
         this.view_reserva.B_actualizar.addActionListener(this);
         this.view_reserva.B_actualizar.setActionCommand("actualizar");
+        this.view_reserva.B_buscarclientereserva.addActionListener(this);
+        this.view_reserva.B_buscarclientereserva.setActionCommand("BuscarClienteReserva");
         /*this.view_reserva.CB_ReservasPaquetes.addActionListener(this);
         this.view_reserva.CB_ReservasPaquetes.setActionCommand("combobox_reserva");
         this.view_reserva.CB_reservavuelo.addActionListener(this);
@@ -237,8 +240,10 @@ public class Controlador implements ActionListener{
         }
         this.view_paquete.setVisible(true);
     }
-    public void ReservarPaquete(){
-        String sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
+    public void ReservarPaquete(String IDCliente,String Nombre ,double Cuota){
+        
+        
+                String sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
                 String cindex = sindex.substring(0,1);
                 int indexpaquete = Integer.parseInt(cindex);
                 sindex = (String)this.view_reserva.CB_reservavuelo.getSelectedItem();
@@ -252,8 +257,8 @@ public class Controlador implements ActionListener{
                 double claseprecio = aero.getPreciobase();
                 int dias = 0;
                 int dia = 0;
-                int mes;
-                int diafin;
+                int mes = 0;
+                int diafin = 0;
                 int mesfin = 0;
               
                 if ("Media".equals(clase)){
@@ -283,17 +288,20 @@ public class Controlador implements ActionListener{
                     while(mesfin > 12){
                         mesfin -= 12;
                     }
-                    
-                    
+                    int[] Fechainicio = {dia,mes};
+                    int[] Fechafinal = {diafin,mesfin};
+                    if(Cuota>=preciototal){
+                        modelo.RealizarReserva(Fechainicio, Fechafinal, id_paquete, indexvuelo, IDCliente,Nombre,Cuota, true, id_operador, preciototal);
+                    }else if(Cuota >=(preciototal*0.5)){
+                        modelo.RealizarReserva(Fechainicio, Fechafinal, id_paquete, indexvuelo, IDCliente,Nombre,Cuota, false, id_operador, preciototal);
+                    }else{
+                    JOptionPane.showMessageDialog(null, "Debe pagar la totalidad de la cuota inicial","error",JOptionPane.OK_OPTION);
+                    }
                 }
 
-                
-                
-                
-                
-                
-        
     }
+    
+    
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -418,8 +426,8 @@ public class Controlador implements ActionListener{
              
                 
             case "actualizar":
-              
-                String sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
+                
+                 String sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
                 String cindex = sindex.substring(0,1);
                 int indexpaquete = Integer.parseInt(cindex);
                 sindex = (String)this.view_reserva.CB_reservavuelo.getSelectedItem();
@@ -431,28 +439,94 @@ public class Controlador implements ActionListener{
                 
                 String clase = this.view_reserva.List_clase.getSelectedValue();
                 double claseprecio = aero.getPreciobase();
+                int diass = 0;
+                int dia = 0;
+                int mes = 0;
+                int diafin = 0;
+                int mesfin = 0;
               
-                if (clase == "Media"){
+                if ("Media".equals(clase)){
                     claseprecio += 100000;
-                }else if(clase == "Alta"){
+                }else if("Alta".equals(clase)){
                     claseprecio += 200000;
                 }
-                
                 double preciototal = paquete.getPreciobase()+claseprecio;
-                
-                
-                this.view_reserva.TA_reservasdescripcion.setText("Paquete : "+paquete.getNombre()
+                 this.view_reserva.TA_reservasdescripcion.setText("Paquete : "+paquete.getNombre()
                         +"\nDestino : "+paquete.getDestino()+"\nPrecio base : "+paquete.getPreciobase()
                         +"\nExcursiones\n__________________ \n");
-                
                 for (int i=0; i<paquete.Excursiones.size(); i++){
                     ExcursionPlus ex = (ExcursionPlus)paquete.Excursiones.get(i);
-                     this.view_reserva.TA_reservasdescripcion.append("Excursion: "+ex.getLugar()+" x "+ex.getDias()+" Dias = "+(ex.getDias()*ex.getPreciobase())+"\n__________________\n");
-                     preciototal += ex.getDias()*ex.getPreciobase();
+                    this.view_reserva.TA_reservasdescripcion.append("Excursion: "+ex.getLugar()+" x "+ex.getDias()+" Dias = "+(ex.getDias()*ex.getPreciobase())+"\n__________________\n");
+                    preciototal += ex.getDias()*ex.getPreciobase();
+                    diass += ex.getDias();
                 }
-                
+                if ("dia".equals(this.view_reserva.T_fechainicio.getText()) || "mes".equals(this.view_reserva.T_fechainicio1.getText()) ){
+                    JOptionPane.showMessageDialog(null, "Ingrese un día y un mes válido","error",JOptionPane.OK_OPTION);
+                }else{
+                    dia = Integer.parseInt(this.view_reserva.T_fechainicio.getText());
+                    mes = Integer.parseInt(this.view_reserva.T_fechainicio1.getText());
+                    int meses = 0;
+                    int diascont = diass + dia;
+                    while(diascont > 31){
+                        diascont -= 31;
+                        meses += 1;
+                    }
+                    diafin = diascont;
+                    mesfin = mes+meses;
+                    while(mesfin > 12){
+                        mesfin -= 12;
+                    }
+                    
+                    this.view_reserva.L_fechainicio.setText(diafin+"/"+mesfin);
+  
+                }
                 this.view_reserva.TA_reservasdescripcion.append("Vuelo:\nAerolinea : "+aero.getNombre()+"\nClase : "+clase+"\nPrecio : "+claseprecio);
                 this.view_reserva.L_precio.setText(preciototal+" $");
+
+                
+                break;
+                
+            case "BuscarClienteReserva":
+                Cliente cliente = modelo.BuscaryCrearCliente(this.view_reserva.T_dni.getText(),this.view_reserva.T_nombre.getText());
+                sindex = (String)this.view_reserva.CB_ReservasPaquetes.getSelectedItem();
+                cindex = sindex.substring(0,1);
+                indexpaquete = Integer.parseInt(cindex);
+                sindex = (String)this.view_reserva.CB_reservavuelo.getSelectedItem();
+                cindex = sindex.substring(0,1);
+                indexvuelo = Integer.parseInt(cindex);
+                
+                paquete = (Paquete)modelo.Paquetes.get(indexpaquete);
+                aero = (Aerolinea)modelo.Aerolineas.get(indexvuelo);
+                
+                clase = this.view_reserva.List_clase.getSelectedValue();
+                claseprecio = aero.getPreciobase();
+                
+              
+                if ("Media".equals(clase)){
+                    claseprecio += 100000;
+                }else if("Alta".equals(clase)){
+                    claseprecio += 200000;
+                }
+                preciototal = paquete.getPreciobase()+claseprecio;
+                for (int i=0; i<paquete.Excursiones.size(); i++){
+                    ExcursionPlus ex = (ExcursionPlus)paquete.Excursiones.get(i);
+                    preciototal += ex.getDias()*ex.getPreciobase();
+                }
+                
+                switch(cliente.getRiesgo()){
+                    case 0:
+                        this.view_reserva.L_cuota.setText((preciototal*0.1)+"");
+                        this.view_reserva.L_saldo.setText((preciototal-(preciototal*0.1))+" $");
+                        break;
+                    case 1:
+                        this.view_reserva.L_cuota.setText((preciototal-(preciototal*0.5))+" $");
+                        this.view_reserva.L_saldo.setText((preciototal-(preciototal*0.5))+" $");
+                        break;
+                    case 2:
+                        this.view_reserva.L_cuota.setText(preciototal+"");
+                        this.view_reserva.L_saldo.setText("0 $");
+                        break;
+                }
                 
                 
                 break;
@@ -465,7 +539,7 @@ public class Controlador implements ActionListener{
                 break;
 
             case "hacer_reserva":
-                this.ReservarPaquete();
+                this.ReservarPaquete(this.view_reserva.T_dni.getText(),this.view_reserva.T_nombre.getText(),Double.parseDouble(this.view_reserva.T_pago.getText()));
                 break;
             case "salir_paquete_exc":
                 view_paquete.setVisible(false);
