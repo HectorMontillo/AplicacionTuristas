@@ -101,10 +101,14 @@ public class Modelo{
 
             if(sql.registrarExcursion(id_operador,id_hotel,lugar,dias, preciobase)){
                 int id_ex = Excursiones.size();
-                ExcursionPlus excur = new ExcursionPlus(id_ex,id_operador,id_hotel,lugar,dias,preciobase); 
+                ExcursionPlus excur = new ExcursionPlus(id_ex+1,id_operador,id_hotel,lugar,dias,preciobase); 
                 Excursiones.add(excur);
                 JOptionPane.showMessageDialog(null, "Se registro la excursion"); 
                 result= true; 
+            }
+            for(int i =0; i<Excursiones.size();i++){
+                ExcursionPlus ex = (ExcursionPlus)Excursiones.get(i);
+                System.out.println("nombre: "+ex.getID());
             }
         }
         else{
@@ -237,18 +241,31 @@ public class Modelo{
    
     public String Opcion(){
         
+        Paquete paquete; 
+        ExcursionPlus ex;
+        paquete = (Paquete)Paquetes.get(id_paquete-1);
+        
         if(op_exc == 1){
             excursion = new Nevado(excursion);
-            sql.registrarPaqueteExcursion(id_paquete, 6);
+            sql.registrarPaqueteExcursion(id_paquete, 5);
+            
+            ex = (ExcursionPlus)Excursiones.get(5-1);
+            paquete.AgregarExcursion(ex); 
           
         }
         if(op_exc == 2){
             sql.registrarPaqueteExcursion(id_paquete, 2);
             excursion = new Otun(excursion); 
+            
+            ex = (ExcursionPlus)Excursiones.get(2-1);
+            paquete.AgregarExcursion(ex);
         } 
         if(op_exc == 3){
             sql.registrarPaqueteExcursion(id_paquete, 4);
             excursion = new Florida(excursion); 
+            
+            ex = (ExcursionPlus)Excursiones.get(4-1);
+            paquete.AgregarExcursion(ex);
         }
         return excursion.getExcursion();
         

@@ -1,6 +1,9 @@
 /*
 Cosas por hacer
-agregar commit: vistas centradas, error de nombre_paquete decorator arreglado
+agregar la relacion paquete excursion dentro del decorator 
+no permitir que un empleado, cree paquetes 
+crear el boton para mostrar lista de reservas ( con un combobox) 
+Boton buscar dentro de reservas no esta funcionando
 */
 package proyecto;
 

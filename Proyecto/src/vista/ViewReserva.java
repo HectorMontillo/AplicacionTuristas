@@ -16,6 +16,7 @@ public class ViewReserva extends javax.swing.JFrame {
      */
     public ViewReserva() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

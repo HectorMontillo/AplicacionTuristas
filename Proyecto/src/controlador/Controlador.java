@@ -240,6 +240,16 @@ public class Controlador implements ActionListener{
         }
         this.view_paquete.setVisible(true);
     }
+    /*
+    public void imprimir(){
+       Paquete paquete = (Paquete)modelo.Paquetes.get(3);
+
+        System.out.println("paquete : "+paquete.getNombre());
+        for (int i=0; i<paquete.Excursiones.size(); i++){
+                    ExcursionPlus ex = (ExcursionPlus)paquete.Excursiones.get(i);
+                    System.out.println("Excursion: "+ex.getLugar()+" x "+ex.getDias()+" Dias = "+(ex.getDias()*ex.getPreciobase())+"\n__________________\n");
+        }
+    } */
     public void ReservarPaquete(String IDCliente,String Nombre ,double Cuota){
         
         
@@ -460,6 +470,8 @@ public class Controlador implements ActionListener{
                     preciototal += ex.getDias()*ex.getPreciobase();
                     diass += ex.getDias();
                 }
+                int paq = modelo.Paquetes.size();
+                //this.imprimir();
                 if ("dia".equals(this.view_reserva.T_fechainicio.getText()) || "mes".equals(this.view_reserva.T_fechainicio1.getText()) ){
                     JOptionPane.showMessageDialog(null, "Ingrese un día y un mes válido","error",JOptionPane.OK_OPTION);
                 }else{
@@ -555,6 +567,8 @@ public class Controlador implements ActionListener{
             case "salir_decorator":
                 view_decorator.setVisible(false);
                 view_paquete.setVisible(true); 
+                view_decorator.T_excursionesadd.setText("");
+                view_decorator.T_namepaquete.setText("");
                 break;
             case "cancelar_excursion":
                 view_excursion.setVisible(false); 
