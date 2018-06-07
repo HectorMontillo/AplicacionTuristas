@@ -20,6 +20,9 @@ public class Modelo{
     public ArrayList Paquetes = new ArrayList();
     public ArrayList Excursiones = new ArrayList();
     public ArrayList Aerolineas = new ArrayList();
+    public ArrayList Operadores = new ArrayList();
+    public ArrayList Hoteles = new ArrayList();
+
     
     public Modelo(){}
     
@@ -70,8 +73,10 @@ public class Modelo{
             return sql.AgregarVendedor(vendedor);
         }
     }
+
     public boolean CrearPaquete(String nombre_paquete, String destino, double preciobase){
         if(sql.agregarPaquete(nombre_paquete, destino,preciobase)){
+
            JOptionPane.showMessageDialog(null, "Se agrego un nuevo paquete");  
            int id = Paquetes.size();
            Paquete paquete = new Paquete(id, nombre_paquete, destino, preciobase);
@@ -83,11 +88,14 @@ public class Modelo{
         }
     }
     
+
     public boolean CrearExcursion(String lugar, String id_operador, String hotel, int dias, double preciobase){
+
         
         boolean result = false;
         int id_hotel = sql.obtenerIdHotel(hotel);
         if(id_hotel != 0){ // si retorna cero es porq hay 1 error 
+
             if(sql.registrarExcursion(id_operador,id_hotel,lugar,dias, preciobase)){
                 JOptionPane.showMessageDialog(null, "Se registro la excursion"); 
                 result= true; 
@@ -193,6 +201,8 @@ public class Modelo{
         sql.CargarExcursiones(Excursiones);   
         sql.CargarAerolineas(Aerolineas);
         sql.RelacionarExcursionesPaquetes(Paquetes, Excursiones);
+        sql.CargarOperadores(Operadores);
+        sql.CargarHoteles(Hoteles);  
     }
     
     

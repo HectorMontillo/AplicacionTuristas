@@ -31,7 +31,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -43,22 +46,24 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="B_agregardestino" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="68" max="32767" attributes="0"/>
-                              <Component id="B_cancelardestino" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="T_destino" alignment="0" max="32767" attributes="0"/>
-                          <Component id="T_nombrepaquete" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="B_agregardestino" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="68" max="32767" attributes="0"/>
+                          <Component id="B_cancelardestino" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="T_destino" alignment="0" max="32767" attributes="0"/>
+                      <Component id="T_nombrepaquete" alignment="0" max="32767" attributes="0"/>
+                      <Component id="T_preciopaquete" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="59" max="32767" attributes="0"/>
               </Group>
@@ -79,12 +84,23 @@
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="T_destino" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="T_preciopaquete" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="B_agregardestino" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="B_cancelardestino" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -142,6 +158,19 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Precio:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="T_preciopaquete">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>

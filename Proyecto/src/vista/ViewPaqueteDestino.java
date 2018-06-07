@@ -35,6 +35,8 @@ public class ViewPaqueteDestino extends javax.swing.JFrame {
         T_destino = new javax.swing.JTextField();
         B_agregardestino = new javax.swing.JButton();
         B_cancelardestino = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        T_preciopaquete = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,25 +55,30 @@ public class ViewPaqueteDestino extends javax.swing.JFrame {
         B_cancelardestino.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         B_cancelardestino.setText("Cancelar");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Precio:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel4))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(B_agregardestino)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                            .addComponent(B_cancelardestino))
-                        .addComponent(T_destino)
-                        .addComponent(T_nombrepaquete)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(B_agregardestino)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addComponent(B_cancelardestino))
+                    .addComponent(T_destino)
+                    .addComponent(T_nombrepaquete)
+                    .addComponent(T_preciopaquete))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,11 +94,19 @@ public class ViewPaqueteDestino extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(T_destino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(T_preciopaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(B_agregardestino)
                     .addComponent(B_cancelardestino))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,7 +119,9 @@ public class ViewPaqueteDestino extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,9 +170,11 @@ public class ViewPaqueteDestino extends javax.swing.JFrame {
     public javax.swing.JButton B_cancelardestino;
     public javax.swing.JTextField T_destino;
     public javax.swing.JTextField T_nombrepaquete;
+    public javax.swing.JTextField T_preciopaquete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
