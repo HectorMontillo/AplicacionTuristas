@@ -7,6 +7,7 @@ public class Cliente {
     private int Riesgo;
     private double SaldoTotal;
     private double Abonado;
+    private SQL sql = new SQL();
     
     public Cliente(){}
 
@@ -61,6 +62,10 @@ public class Cliente {
             this.Abonado += Abonado;
             this.Abonado -= this.SaldoTotal;
             this.SaldoTotal = 0;
+            if (this.Riesgo < 2){
+                this.Riesgo+=1;
+            }
+            sql.PagarReserva(this.ID);
         }
        
     }

@@ -143,8 +143,52 @@ public class Modelo{
         
         id_paquete = sql.obtenerIdPaquete(nom_paquete);
     }
-    public boolean RealizarReserva(){
-        return true;
+    
+    public Cliente BuscaryCrearCliente(String IDCliente, String Nombre){
+        Cliente cliente = this.BuscarClientePlus(IDCliente);
+        if(cliente == null){
+            cliente = new Cliente(IDCliente,Nombre,0,0,1);
+            sql.registrarCliente(cliente);
+        }
+        return cliente;
+    }
+    
+    public void RealizarReserva(int[] Fechainicio, int[] Fechafinal,int IDPaquete,int IDVuelo, String IDCliente,String Nombre,double Cuota, boolean Pagado, String IDVendedor, double Precio){
+        
+        Cliente cliente = this.BuscarClientePlus(IDCliente);
+        
+        
+        
+        if(cliente.getSaldoTotal()<= 0){
+            
+            Aerolinea aero = (Aerolinea)Aerolineas.get(IDVuelo);
+            Paquete paq = (Paquete)Paquetes.get(IDPaquete);
+            String nombrevendedor = sql.ConsultaVendedor(IDVendedor);
+            int id = Reservas.size();
+            Reserva res = new Reserva(id,IDPaquete, IDVuelo,IDCliente,Pagado,IDVendedor, Precio);
+            res.setFechainicio(Fechainicio);
+            res.setFechafinal(Fechafinal);
+            res.setDescription("Reserva------------------ \nCliente : "+cliente.getNombre()+
+                    "\nAerolinea : "+aero.getNombre()+"\nPaquete : "+paq.getNombre()+"----->"+paq.getDestino()+
+                    "\nVendedor : "+nombrevendedor+"\nFecha inicio : "+Fechainicio[0]+"/"+Fechainicio[1]+
+                    "\nFechafinal : "+Fechafinal[0]+"/"+Fechafinal[1]+"\n");
+            
+            if(sql.registrarReserva(res)){
+                JOptionPane.showMessageDialog(null, "Se hizo una reserva exitosamente");
+                Reservas.add(res);
+                sql.actualizarSaldoTotal(IDCliente,Precio);
+                this.Abonar(IDCliente, Cuota);
+            }else{
+                JOptionPane.showMessageDialog(null, "Error con la base de datos","error",JOptionPane.OK_OPTION);
+            }
+            
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Este cliente no puede hacer una reserva, antes debe pagar todo el saldo pendiente","error",JOptionPane.OK_OPTION);
+            
+        }
+        
+        
     }
     public boolean Facturar(){
         return true;
@@ -163,6 +207,17 @@ public class Modelo{
         }
         
     }
+    public Cliente BuscarClientePlus(String ID){
+        Cliente cliente;
+        cliente = sql.BuscarCliente(ID); 
+        if (cliente == null){
+            JOptionPane.showMessageDialog(null, "No hay registros de: "+ID,"error",JOptionPane.OK_OPTION);
+            return null;
+        }else{
+            return cliente;
+        }
+        
+    }
     public boolean Abonar(String ID, double Pago){
         if (sql.Abonar(ID, Pago)){
             JOptionPane.showMessageDialog(null, "Se hizo un abono de : "+Pago);
@@ -173,9 +228,7 @@ public class Modelo{
             return false;
         
         }
-        
-        
-        
+   
     }
 
     public void setOpcion(int op){

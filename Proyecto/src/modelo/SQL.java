@@ -360,9 +360,10 @@ public class SQL extends Conexion{
        Connection con = getConexion(); 
        
        Cliente cliente = this.BuscarCliente(ID);
-       
+       System.out.println("aqui--->"+cliente.getSaldoTotal());
+         System.out.println(cliente.getNombre());
        cliente.Abonar(abono);
-         System.out.println(cliente.getAbonado()+" "+cliente.getSaldoTotal());
+       System.out.println("aqui--->"+cliente.getSaldoTotal());
        
        String sql = "UPDATE cliente SET saldo_acumulado = ?, saldo_total = ? WHERE id_cliente = ?;";
        
@@ -658,6 +659,189 @@ public class SQL extends Conexion{
                     return false;
             } 
     }
+    public boolean registrarReserva(Reserva res){
+        PreparedStatement ps = null; 
+       Connection con = getConexion();   
+       
+       String sql= "INSERT INTO reservas(id_reserva,id_paqexc,fecha_inicio,fecha_final,id_vuelo,id_cliente,pagado,id_admin,precio)"
+               + " VALUES(?,?,?,?,?,?,?,?,?)";      
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, res.getID());
+           ps.setInt(2, 1);
+           ps.setString(3, res.getStringFechaInicio());
+           ps.setString(4, res.getStringFechaFinal());
+           ps.setInt(5,1);
+           ps.setString(6, res.getIDCliente());
+           ps.setBoolean(7,res.isPagado());
+           ps.setString(8, res.getIDVendedor());
+           ps.setDouble(9,res.getPrecio());
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+          
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION); 
+
+           return false; 
+       }
+    }
+    
+    public boolean CargarReservas(ArrayList Reservas){
+        
+        Connection con = getConexion();
+        String sql = "SELECT * FROM reservas";
+        
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Reserva res = new Reserva();
+                res.setID(rs.getInt("id_reserva"));
+                res.setStringFechainicio(rs.getString("fecha_inicio"));
+                res.setStringFechafinal(rs.getString("fecha_final"));
+                res.setIDCliente(rs.getString("id_cliente"));
+                res.setIDPaquete(rs.getInt("id_paqexc"));
+                res.setIDVendedor(rs.getString("id_admin"));
+                res.setIDVuelo(rs.getInt(rs.getInt("id_vuelo")));
+                res.setPagado(rs.getBoolean("pagado"));
+                res.setPrecio(rs.getDouble("precio"));
+                
+                Reservas.add(res);
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+
+            } catch (SQLException ea) {
+                    
+                JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                return false;
+
+            }
+    }
+    public String ConsultaVendedor(String Codigo){
+  
+        Connection con = getConexion();
+        //SELECT * FROM `empleados` WHERE id_emp = "1088345137" AND password = "cafeoscuro"; 
+        String sql = "SELECT * FROM empleado WHERE id_admin = '"+Codigo+"'";
+        String nombre = "";
+                  
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                 nombre = rs.getString("nombre");
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            
+           
+            } catch (SQLException ea) {
+                    
+                    System.out.println("Exception");
+                      
+
+            }
+            
+    return nombre;  
+    }
+    
+    public boolean PagarReserva(String ID){
+      
+       PreparedStatement ps = null; 
+       Connection con = getConexion(); 
+
+       
+       String sql = "UPDATE reservas SET pagado = ? WHERE id_cliente = ?;";
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setBoolean(1, true);
+           ps.setString(2, ID);
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+           Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "Cliente no tiene reservas","Error",JOptionPane.OK_OPTION);
+           return false; 
+       }
+  }
+  
+  public boolean registrarCliente(Cliente cliente){
+       
+       // para insertar en mysql vamos a prepara la consulta 
+       PreparedStatement ps = null; 
+       Connection con = getConexion();   
+       
+       String sql= "INSERT INTO cliente(id_cliente,nombre,id_riesgo,saldo_acumulado,saldo_total) VALUES(?,?,?,?,?)"; 
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setString(1, cliente.getID());
+           ps.setString(2, cliente.getNombre());
+           ps.setInt(3, cliente.getRiesgo());
+           ps.setDouble(4, cliente.getAbonado());
+           ps.setDouble(5, cliente.getSaldoTotal());
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+          
+           if(ex.getErrorCode()==1062){
+               JOptionPane.showMessageDialog(null, "La cedula ya esta resgistrada","error al registrar",JOptionPane.OK_OPTION);
+           }
+           else{
+               JOptionPane.showMessageDialog(null, ex.getMessage(),"error",JOptionPane.OK_OPTION); 
+           }
+           
+           return false; 
+       }
+       
+   }
+  
+  public boolean actualizarSaldoTotal(String ID, double saldo_total){
+      
+       PreparedStatement ps = null; 
+       Connection con = getConexion(); 
+
+       
+       String sql = "UPDATE cliente SET saldo_total = ? WHERE id_cliente = ?;";
+       
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setDouble(1, saldo_total);
+           ps.setString(2, ID);
+           ps.execute();
+           
+           ps.close();
+           con.close();
+           return true; 
+           
+       } catch (SQLException ex) {
+           Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "Cliente no tiene reservas","Error",JOptionPane.OK_OPTION);
+           return false; 
+       }
+  }
+  
     
     
     /*
