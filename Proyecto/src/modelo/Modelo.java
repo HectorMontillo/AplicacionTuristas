@@ -71,7 +71,10 @@ public class Modelo{
     }
     public boolean CrearPaquete(String nombre_paquete, String destino){
         if(sql.agregarPaquete(nombre_paquete, destino)){
-           JOptionPane.showMessageDialog(null, "Se agrego un nuevo paquete");      
+           JOptionPane.showMessageDialog(null, "Se agrego un nuevo paquete");  
+           int id = Paquetes.size();
+           Paquete paquete = new Paquete(id, nombre_paquete, destino);
+           Paquetes.add(paquete);
            return true;
         } 
         else{

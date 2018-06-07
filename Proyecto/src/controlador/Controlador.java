@@ -181,8 +181,7 @@ public class Controlador implements ActionListener{
             this.view_reserva.CB_ReservasPaquetes.addItem(paquete.getNombre());
         }
         this.view_reserva.setVisible(true);
-        
-        
+ 
     }
 
     @Override
@@ -299,8 +298,9 @@ public class Controlador implements ActionListener{
                 break;
                 
              case "salir_reserva":
-                this.view_main.setVisible(true);
+                this.view_reserva.CB_ReservasPaquetes.removeAllItems();
                 this.view_reserva.dispose();
+                this.view_main.setVisible(true);
                 break;
                 
             case "hacer_reserva":
