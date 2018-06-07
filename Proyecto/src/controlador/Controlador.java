@@ -96,6 +96,8 @@ public class Controlador implements ActionListener{
         this.view_decorator.B_otun.setActionCommand("Otun");
         this.view_decorator.B_florida.addActionListener(this);
         this.view_decorator.B_florida.setActionCommand("Florida");
+        this.view_decorator.B_salirdecorator.addActionListener(this);
+        this.view_decorator.B_salirdecorator.setActionCommand("salir_decorator");
     }
     
     public void iniciar(){
@@ -322,8 +324,10 @@ public class Controlador implements ActionListener{
             case "Exc_Decorator":
                 view_paquete.setVisible(false); 
                 view_decorator.setVisible(true); 
-                modelo.setIdPaquete(nom_paquete); 
-                view_decorator.T_namepaquete.setText(nom_paquete); 
+                
+                // Se le envia el nombre del paquete que haya seleccionado en el comboBox
+                modelo.setIdPaquete(view_paquete.CB_listapaquetes.getSelectedItem().toString()); 
+                view_decorator.T_namepaquete.setText(view_paquete.CB_listapaquetes.getSelectedItem().toString()); 
                 break; 
             case "Nevado":
                 modelo.setOpcion(1);
@@ -363,6 +367,14 @@ public class Controlador implements ActionListener{
                 view_excursion.setVisible(false);
                 view_paquete.setVisible(true);
                 break;
+            case "salir_decorator":
+                view_decorator.setVisible(false);
+                view_paquete.setVisible(true); 
+                break;
+            case "cancelar_excursion":
+                view_excursion.setVisible(false); 
+                view_paquete.setVisible(true);
+                break; 
             default:
                 System.out.println("Error en acción");
         }

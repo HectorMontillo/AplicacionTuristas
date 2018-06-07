@@ -16,6 +16,7 @@ public class ViewPaqueteDestino extends javax.swing.JFrame {
      */
     public ViewPaqueteDestino() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

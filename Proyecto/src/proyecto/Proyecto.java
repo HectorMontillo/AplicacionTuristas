@@ -1,6 +1,6 @@
 /*
 Cosas por hacer
-agregar precio en aerolinea, paquete, excursion, reserva
+agregar commit: vistas centradas, error de nombre_paquete decorator arreglado
 */
 package proyecto;
 
