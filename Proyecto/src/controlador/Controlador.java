@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.Modelo;
+import modelo.Paquete;
 import vista.*;
 
 public class Controlador implements ActionListener{
@@ -30,6 +31,7 @@ public class Controlador implements ActionListener{
     int id_paquete; 
     
     public Controlador(){
+        this.modelo.CargarDatos();
         this.view_login.setVisible(true);
         this.view_login.B_Login.addActionListener(this);
         this.view_login.B_Login.setActionCommand("B_Login");
@@ -41,6 +43,8 @@ public class Controlador implements ActionListener{
         this.view_main.B_crearpaquete.setActionCommand("B_Crear");
         this.view_main.B_listadoclientes.addActionListener(this);
         this.view_main.B_listadoclientes.setActionCommand("listado_clientes");
+        this.view_main.B_reservarpaquete.addActionListener(this);
+        this.view_main.B_reservarpaquete.setActionCommand("reservar paquete");
         
         // Botones vista PaqueteDestino
         this.view_destino.B_agregardestino.addActionListener(this);
@@ -74,6 +78,11 @@ public class Controlador implements ActionListener{
         
         // vista Reserva
         this.view_reserva.CB_ReservasPaquetes.addActionListener(this);
+        this.view_reserva.B_cancelar.addActionListener(this);
+        this.view_reserva.B_cancelar.setActionCommand("salir_reserva");
+        this.view_reserva.B_hacerreserva.addActionListener(this);
+        this.view_reserva.B_hacerreserva.setActionCommand("hacer_reserva");
+        
         
         // vista Excursion_Decorator
         this.view_decorator.B_nevado.addActionListener(this);
@@ -163,6 +172,17 @@ public class Controlador implements ActionListener{
         }
         
           
+    }
+    
+    public void VistaReservarPaquete(){
+        this.view_main.dispose();
+        for(int i = 0; i < modelo.Paquetes.size(); i++){
+            Paquete paquete = (Paquete)modelo.Paquetes.get(i);
+            this.view_reserva.CB_ReservasPaquetes.addItem(paquete.getNombre());
+        }
+        this.view_reserva.setVisible(true);
+        
+        
     }
 
     @Override
@@ -272,6 +292,22 @@ public class Controlador implements ActionListener{
                 modelo.setOpcion(3);
                 view_decorator.T_excursionesadd.setText(modelo.Opcion());           
                 break;
+                
+                
+            case "reservar paquete":
+                this.VistaReservarPaquete();
+                break;
+                
+             case "salir_reserva":
+                this.view_main.setVisible(true);
+                this.view_reserva.dispose();
+                break;
+                
+            case "hacer_reserva":
+                //this.ReservarPaquete();
+                break;
+                
+                
             default:
                 System.out.println("Error en acción");
         }

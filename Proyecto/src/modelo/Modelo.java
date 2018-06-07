@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import vista.ViewCrearPaquete;
 import vista.ViewExcursiones;
@@ -16,7 +17,9 @@ public class Modelo{
     int id_paquete; 
     I_Excursion excursion = new Excursion(); 
     
- 
+    public ArrayList Paquetes = new ArrayList();
+    public ArrayList Excursiones = new ArrayList();
+    
     public Modelo(){}
     
     public boolean CargarAdministradores(){
@@ -68,7 +71,7 @@ public class Modelo{
     }
     public boolean CrearPaquete(String nombre_paquete, String destino){
         if(sql.agregarPaquete(nombre_paquete, destino)){
-           JOptionPane.showMessageDialog(null, "Se agrego un nuevo paquete");
+           JOptionPane.showMessageDialog(null, "Se agrego un nuevo paquete");      
            return true;
         } 
         else{
@@ -169,7 +172,7 @@ public class Modelo{
         }
         return excursion.getExcursion();
         
-    } 
+    }
     
     public void cargarCombo(ViewCrearPaquete view_paquete){
         sql.cargarComboBox(view_paquete);
@@ -180,5 +183,12 @@ public class Modelo{
     public void cargarComboHoteles(ViewExcursiones view_excursion){
         sql.cargarComboHoteles(view_excursion);
     }
+    
+    public void CargarDatos(){
+        sql.CargarPaquetes(Paquetes);
+        sql.CargarExcursiones(Excursiones);   
+    }
+    
+    
     
 }

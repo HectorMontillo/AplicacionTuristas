@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -469,6 +470,93 @@ public class SQL extends Conexion{
            return false; 
        }
     }
+    
+     public boolean CargarExcursiones(ArrayList Excursiones){
+        
+        Connection con = getConexion();
+        String sql = "SELECT * FROM excursion";      
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                ExcursionPlus ex = new ExcursionPlus();
+                ex.setID(rs.getInt("id_excursion"));
+                ex.setIDOperador(rs.getString("id_operador"));
+                ex.setLugar(rs.getString("lugar"));
+                ex.setIDHotel(rs.getInt("id_hotel"));
+                ex.setDias(rs.getInt("dias"));
+                Excursiones.add(ex); 
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                    return false;
+
+            }
+    }
+    
+    public boolean CargarPaquetes(ArrayList Paquetes){
+        
+        Connection con = getConexion();
+        String sql = "SELECT * FROM paquete";
+        
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Paquete paquete = new Paquete();
+                paquete.setDestino(rs.getString("destino"));
+                paquete.setID(rs.getInt("id_paquete"));
+                paquete.setNombre(rs.getString("nombre"));
+                Paquetes.add(paquete);
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+
+            } catch (SQLException ea) {
+                    
+                JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                return false;
+
+            }
+    }
+    
+     public boolean RelacionarExcursionesPaquetes(ArrayList Paquetes,ArrayList Excursiones){
+        
+        Connection con = getConexion();
+        String sql = "SELECT * FROM paquete_excursion";      
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                    return false;
+
+            }
+    }
+    
+    
+    
     /*
     public int entrarAdmin(String cod,String pass){
         
