@@ -23,7 +23,7 @@ public class Paquete {
         Excursiones.add(ex);
         }
     
-    public void AgregarExcursion(Excursion ex){
+    public void AgregarExcursion(ExcursionPlus ex){
         Excursiones.add(ex);   
     }
 
