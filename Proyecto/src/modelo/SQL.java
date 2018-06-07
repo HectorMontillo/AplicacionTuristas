@@ -601,6 +601,60 @@ public class SQL extends Conexion{
             }
     }
     
+    public boolean CargarOperadores(ArrayList Operadores){
+        
+       Connection con = getConexion();
+        String sql = "SELECT * FROM operador";      
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Operador opera = new Operador();
+                opera.setId_operador(rs.getString("id_operador"));
+                opera.setNombre(rs.getString("nombre"));
+                Operadores.add(opera); 
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                    return false;
+            } 
+    }
+    
+    public boolean CargarHoteles(ArrayList Hoteles){
+        
+       Connection con = getConexion();
+        String sql = "SELECT * FROM hotel";      
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                Hotel hotel = new Hotel();
+                hotel.setId_hotel(rs.getInt("id_hotel"));
+                hotel.setNombre(rs.getString("nombre"));
+                hotel.setEstrellas(rs.getInt("estrellas"));
+                hotel.setCosto_noche(rs.getDouble("costo_noche"));
+                Hoteles.add(hotel); 
+            }
+            rs.close();
+            st.close();
+            con.close();
+            return true;
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+                    return false;
+            } 
+    }
+    
     
     /*
     public int entrarAdmin(String cod,String pass){
