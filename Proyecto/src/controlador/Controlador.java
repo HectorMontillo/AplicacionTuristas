@@ -12,6 +12,7 @@ import modelo.Modelo;
 import modelo.Operador;
 import modelo.Paquete;
 import modelo.Cliente;
+import modelo.Reserva;
 import vista.*;
 
 public class Controlador implements ActionListener{
@@ -27,6 +28,7 @@ public class Controlador implements ActionListener{
     ViewReserva view_reserva = new ViewReserva();
     
     ViewExcDecorator view_decorator = new ViewExcDecorator();
+    ViewReservasInfo view_reservas_info = new ViewReservasInfo();
     
     Modelo modelo = new Modelo();
     JFrame view;
@@ -50,6 +52,8 @@ public class Controlador implements ActionListener{
         this.view_main.B_listadoclientes.setActionCommand("listado_clientes");
         this.view_main.B_reservarpaquete.addActionListener(this);
         this.view_main.B_reservarpaquete.setActionCommand("reservar paquete");
+        this.view_main.B_reservas.addActionListener(this);
+        this.view_main.B_reservas.setActionCommand("reservas_info");
         
         // Botones vista PaqueteDestino
         this.view_destino.B_agregardestino.addActionListener(this);
@@ -109,6 +113,10 @@ public class Controlador implements ActionListener{
         this.view_decorator.B_florida.setActionCommand("Florida");
         this.view_decorator.B_salirdecorator.addActionListener(this);
         this.view_decorator.B_salirdecorator.setActionCommand("salir_decorator");
+        
+        // vista Reservas Info
+        this.view_reservas_info.B_salir_info.addActionListener(this);
+        this.view_reservas_info.B_salir_info.setActionCommand("salir_info");
     }
     
     public void iniciar(){
@@ -234,11 +242,19 @@ public class Controlador implements ActionListener{
     }
     public void cargarCBHoteles(){
         // caragar hoteles
-        for(int i = 0; i < modelo.Operadores.size(); i++){
+        for(int i = 0; i < modelo.Hoteles.size(); i++){
             Hotel hotel = (Hotel)modelo.Hoteles.get(i);
             this.view_excursion.CB_VistaExcursionesHotel.addItem(hotel.getNombre());
         }
         this.view_paquete.setVisible(true);
+    }
+    
+    public void cargarCBReservas(){
+        // caragar hoteles
+        for(int i = 0; i < modelo.Reservas.size(); i++){
+            Reserva reserva = (Reserva)modelo.Reservas.get(i);
+            this.view_reservas_info.CB_Reservas.addItem(String.valueOf(reserva.getID()));
+        }
     }
     /*
     public void imprimir(){
@@ -573,6 +589,12 @@ public class Controlador implements ActionListener{
             case "cancelar_excursion":
                 view_excursion.setVisible(false); 
                 view_paquete.setVisible(true);
+                break;
+            case "reservas_info":
+                view_main.setVisible(false);
+                this.cargarCBReservas();
+                view_reservas_info.setVisible(true);
+                
                 break; 
             default:
                 System.out.println(command);

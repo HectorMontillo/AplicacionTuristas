@@ -169,7 +169,7 @@ public class Modelo{
             Paquete paq = (Paquete)Paquetes.get(IDPaquete);
             String nombrevendedor = sql.ConsultaVendedor(IDVendedor);
             int id = Reservas.size();
-            Reserva res = new Reserva(id,IDPaquete, IDVuelo,IDCliente,Pagado,IDVendedor, Precio);
+            Reserva res = new Reserva(id+1,IDPaquete, IDVuelo,IDCliente,Pagado,IDVendedor, Precio);
             res.setFechainicio(Fechainicio);
             res.setFechafinal(Fechafinal);
             res.setDescription("Reserva------------------ \nCliente : "+cliente.getNombre()+
@@ -288,6 +288,13 @@ public class Modelo{
         sql.RelacionarExcursionesPaquetes(Paquetes, Excursiones);
         sql.CargarOperadores(Operadores);
         sql.CargarHoteles(Hoteles);  
+        sql.CargarReservas(Reservas);
+    }
+    
+    public String imprimirDescrip(int id_reserva){
+        
+        Reserva reser = (Reserva)Reservas.get(id_reserva+1);
+        return reser.getDescription();
     }
     /*
     public void imprimir_paq_ex(ArrayList Paquetes){

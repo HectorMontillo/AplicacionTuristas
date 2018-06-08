@@ -145,9 +145,9 @@ public class ViewCrearPaquete extends javax.swing.JFrame {
 
     private void CB_listapaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_listapaquetesActionPerformed
         // TODO add your handling code here:
-        System.out.println("jComboBox1: " +  CB_listapaquetes);
-        String support = (String)CB_listapaquetes.getSelectedItem(); 
-        System.out.println("suppor: "+ support);
+        //System.out.println("jComboBox1: " +  CB_listapaquetes);
+        //String support = (String)CB_listapaquetes.getSelectedItem(); 
+        //System.out.println("suppor: "+ support);
         //System.out.println("league: "+ league);
         //league.setLeagueName(support);
     }//GEN-LAST:event_CB_listapaquetesActionPerformed

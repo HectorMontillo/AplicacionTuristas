@@ -668,7 +668,7 @@ public class SQL extends Conexion{
        
        try {
            ps = con.prepareStatement(sql);
-           ps.setInt(1, res.getID());
+           ps.setInt(1, res.getID()+1);
            ps.setInt(2, 1);
            ps.setString(3, res.getStringFechaInicio());
            ps.setString(4, res.getStringFechaFinal());
@@ -727,6 +727,7 @@ public class SQL extends Conexion{
 
             }
     }
+    
     public String ConsultaVendedor(String Codigo){
   
         Connection con = getConexion();
@@ -842,6 +843,32 @@ public class SQL extends Conexion{
        }
   }
   
+  public String imprimirReservas(int id_reserva){
+      
+      String info_res=""; 
+      Connection con = getConexion();
+        String sql = "SELECT * FROM reservas WHERE id_reserva = '"+id_reserva+"' ";     
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                info_res = "Id_paquete: "+rs.getInt("id_paqexc")+"\nfecha_ini: "+rs.getString("fecha_inicio")+
+                        "\nfecha_final: "+rs.getString("fecha_final")+"\nid_vuelo: "+rs.getInt("id_vuelo")+
+                    "\nid_cliente: "+rs.getString("id_cliente")+"\npadado: "+rs.getBoolean("pagado")+
+                     "\nid_vendedor: "+rs.getString("id_admin")+"\nPrecio: "+rs.getDouble("precio");
+            }
+            rs.close();
+            st.close();
+            con.close();
+           
+            } catch (SQLException ea) {
+                    
+                    JOptionPane.showMessageDialog(null, ea.getMessage(),"Error",JOptionPane.OK_OPTION);
+            }
+    return info_res; 
+  }
+
     
     
     /*
