@@ -136,6 +136,7 @@ public class Controlador implements ActionListener{
             System.out.println("Se inicio sesion");
             view_main.setVisible(true);
             view_login.dispose();
+            modelo.imprimirReservas(); 
         }else{
             System.out.println("No se inicio sesion");
         }
@@ -594,8 +595,13 @@ public class Controlador implements ActionListener{
                 view_main.setVisible(false);
                 this.cargarCBReservas();
                 view_reservas_info.setVisible(true);
-                
                 break; 
+                
+            case "salir_info":
+                view_reservas_info.setVisible(false);
+                view_main.setVisible(true); 
+                view_reservas_info.CB_Reservas.removeAllItems();
+                break;
             default:
                 System.out.println(command);
         }

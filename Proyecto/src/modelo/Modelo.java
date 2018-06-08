@@ -296,6 +296,14 @@ public class Modelo{
         Reserva reser = (Reserva)Reservas.get(id_reserva+1);
         return reser.getDescription();
     }
+    
+    public void imprimirReservas(){
+        for(int i=0; i<Reservas.size();i++){
+            Reserva reser = (Reserva)Reservas.get(i);
+            System.out.println("descripcion: "+reser.getDescription());
+        }
+        
+    }
     /*
     public void imprimir_paq_ex(ArrayList Paquetes){
        //Paquete paquet;
